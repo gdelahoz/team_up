@@ -1,8 +1,19 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
       Equipo
     </ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar color="primary">
+    <ion-segment [value]="default" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="players">
+        <ion-label>Jugadores</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="coachs">
+        <ion-label>Entrenadores</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
@@ -13,46 +24,154 @@
     </ion-toolbar>
   </ion-header>
 
+  <div [ngSwitch]="default">
+    <ion-list *ngSwitchCase="'players'" >
+      <!--<ion-list-header class="fw-bold fs-5"> Jugadores </ion-list-header>-->
   
-  <ion-list>
-    <ion-list-header class="fw-bold fs-5"> Plantel </ion-list-header>
-
-    <ion-item-group>
-      <ion-item-divider>
-        <ion-label class="fw-bold">Arqueros</ion-label>
-      </ion-item-divider>
-
-      <ion-item>
-        <ion-label>Cristian Cantillo</ion-label>
-      </ion-item>
-
-      <ion-item lines="none">
-        <ion-label>Alan Hernandez</ion-label>
-      </ion-item>
-
-      <ion-item-divider>
-        <ion-label class="fw-bold">Defensores</ion-label>
-      </ion-item-divider>
-
-      <ion-item lines="none">
-        <ion-label>Gabriel De La Hoz</ion-label>
-      </ion-item>
-
-      <ion-item-divider>
-        <ion-label class="fw-bold">Mediocampistas</ion-label> 
-      </ion-item-divider>
-
-      <ion-item lines="none">
-        <ion-label>Dario Higuita</ion-label>
-      </ion-item>
-
-      <ion-item-divider>
-        <ion-label class="fw-bold">Delanteros</ion-label> 
-      </ion-item-divider>
-
-      <ion-item lines="none">
-        <ion-label>Diego Barraza</ion-label>
-      </ion-item>
-    </ion-item-group>
-  </ion-list>
+      <ion-item-group>
+        <ion-item-divider>
+          <ion-label class="fw-bold">Arqueros</ion-label>
+        </ion-item-divider>
+  
+        <ion-item-sliding>
+          <ion-item lines="none">
+            <ion-avatar slot="start">
+              <img src="../../../assets/img/motobomba.jpeg" />
+            </ion-avatar>
+            <ion-label>
+              ©️ Cristian Cantillo
+              <p class="mb-0">21 años - Barranquilla</p>
+            </ion-label>
+          </ion-item>
+  
+          <ion-item-options side="start">
+            <ion-item-option (click)="editPlayer()" color="primary">Editar</ion-item-option>
+          </ion-item-options>
+  
+          <ion-item-options side="end">
+            <ion-item-option (click)="deletePlayerModal()" color="danger">Eliminar</ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+  
+        <ion-item-divider>
+          <ion-label class="fw-bold">Defensores</ion-label>
+        </ion-item-divider>
+  
+        <ion-item-sliding>
+          <ion-item lines="none">
+            <ion-avatar slot="start">
+              <img src="../../../assets/img/motobomba.jpeg" />
+            </ion-avatar>
+            <ion-label>
+              Gabriel De La Hoz
+              <p class="mb-0">21 años - Barranquilla</p>
+            </ion-label>
+          </ion-item>
+  
+          <ion-item-options side="start">
+            <ion-item-option color="primary">Editar</ion-item-option>
+          </ion-item-options>
+  
+          <ion-item-options side="end">
+            <ion-item-option color="danger">Eliminar</ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+  
+        <ion-item-sliding>
+          <ion-item lines="none">
+            <ion-avatar slot="start">
+              <img src="../../../assets/img/motobomba.jpeg" />
+            </ion-avatar>
+            <ion-label>
+              Angel Rodriguez
+              <p class="mb-0">19 años - Barranquilla</p>
+            </ion-label>
+          </ion-item>
+  
+          <ion-item-options side="start">
+            <ion-item-option color="primary">Editar</ion-item-option>
+          </ion-item-options>
+  
+          <ion-item-options side="end">
+            <ion-item-option color="danger">Eliminar</ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+        <ion-item-divider>
+          <ion-label class="fw-bold">Mediocampistas</ion-label> 
+        </ion-item-divider>
+  
+        <ion-item-sliding>
+          <ion-item lines="none">
+            <ion-avatar slot="start">
+              <img src="../../../assets/img/motobomba.jpeg" />
+            </ion-avatar>
+            <ion-label>
+              ©️ Dario Higuita
+              <p class="mb-0">22 años - Barranquilla</p>
+            </ion-label>
+          </ion-item>
+  
+          <ion-item-options side="start">
+            <ion-item-option color="primary">Editar</ion-item-option>
+          </ion-item-options>
+  
+          <ion-item-options side="end">
+            <ion-item-option color="danger">Eliminar</ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+  
+        <ion-item-divider>
+          <ion-label class="fw-bold">Delanteros</ion-label> 
+        </ion-item-divider>
+  
+        <ion-item-sliding>
+          <ion-item lines="none">
+            <ion-avatar slot="start">
+              <img src="../../../assets/img/motobomba.jpeg" />
+            </ion-avatar>
+            <ion-label>
+              ©️ Jaime Ramos
+              <p class="mb-0">23 años - Barranquilla</p>
+            </ion-label>
+          </ion-item>
+  
+          <ion-item-options side="start">
+            <ion-item-option color="primary">Editar</ion-item-option>
+          </ion-item-options>
+  
+          <ion-item-options side="end">
+            <ion-item-option color="danger">Eliminar</ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+        
+      </ion-item-group>
+    </ion-list>
+  
+    <ion-list *ngSwitchCase="'coachs'">
+      <!--<ion-list-header class="fw-bold fs-5"> Entrenadores </ion-list-header>-->
+  
+      <ion-item-group>
+        <ion-item-divider>
+          <ion-label class="fw-bold">Técnico</ion-label>
+        </ion-item-divider>
+  
+        <ion-item lines="none">
+          <ion-label>Nick Velasquez</ion-label>
+        </ion-item>
+  
+        <ion-item-divider>
+          <ion-label class="fw-bold">Asistente Técnico</ion-label>
+        </ion-item-divider>
+  
+        <ion-item lines="none">
+          <ion-label>Omar Pérez</ion-label>
+        </ion-item>
+  
+        <ion-item lines="none">
+          <ion-label>Carlos Muriel</ion-label>
+        </ion-item>
+      </ion-item-group>
+    </ion-list>
+  </div>
+  
 </ion-content>
