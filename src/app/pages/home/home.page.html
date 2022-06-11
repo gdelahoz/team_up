@@ -9,16 +9,16 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding-horizontal ion-padding-top">
+<ion-content [fullscreen]="true" class="ion-padding-horizontal ion-padding-vertical">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Motobomba FC</ion-title>
     </ion-toolbar>
   </ion-header>
   
-  <app-card-advertising title="Entrenamiento aplazado" subtitle="Anuncio importante"></app-card-advertising>
+  <team-card-advertising title="Entrenamiento aplazado" subtitle="Anuncio importante"></team-card-advertising>
 
-  <ion-card>
+  <ion-card class="ion-no-margin mb-3">
     <div class="w-100 banner-card">
     </div>
     <ion-card-header>
@@ -30,7 +30,7 @@
     </ion-card-header>
   
     <ion-card-content>
-      <p><b>Capitanes</b></p>
+      <ion-label><b>Capitanes</b></ion-label>
       <div>
         <p>1. Cristian Leonardo <b>(ARQ)</b></p>
         <p>2. Diego Barraza <b>(DEL)</b></p>
