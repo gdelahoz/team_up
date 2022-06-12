@@ -3,6 +3,9 @@
     <ion-title>
       Equipo
     </ion-title>
+    <ion-avatar class="p-2" slot="end">
+      <img class="border border-light" src="../../../assets/img/motobomba.jpeg"/>
+    </ion-avatar>
   </ion-toolbar>
 
   <ion-toolbar color="primary">
@@ -18,12 +21,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Mi Equipo</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
   <div [ngSwitch]="default">
     <ion-list *ngSwitchCase="'players'" >
       <!--<ion-list-header class="fw-bold fs-5"> Jugadores </ion-list-header>-->
