@@ -1,5 +1,7 @@
 <ion-card class="m-3" style="position: relative;">
-  <ion-icon class="icon-options" name="ellipsis-vertical"></ion-icon>
+  <ion-button fill="clear" class="icon-options" size="small" (click)="openPopoverAssist($event)">
+      <ion-icon slot="icon-only" size="small" name="ellipsis-vertical"></ion-icon>
+  </ion-button>
   <ion-row>
     <ion-col size="4" class="p-2">
       <img class="img-event" src="{{ image }}" width="100%" height="114" alt="Imagen evento">

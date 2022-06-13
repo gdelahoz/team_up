@@ -13,4 +13,8 @@ export class CardAdvertisingComponent implements OnInit {
 
   ngOnInit() {}
 
+  editAdvertising(){
+    console.log('Editar anuncio');
+  }
+
 }

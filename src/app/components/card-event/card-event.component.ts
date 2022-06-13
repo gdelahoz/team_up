@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
+import { PopoverAssistComponent } from '../popover-assist/popover-assist.component';
 
 @Component({
   selector: 'team-card-event',
@@ -13,8 +15,20 @@ export class CardEventComponent implements OnInit {
   @Input() players: string;
   @Input() image: string;
 
-  constructor() { }
+  constructor( private popoverCtrl: PopoverController ) { }
 
   ngOnInit() {}
+
+  async openPopoverAssist( evento ){
+    console.log('ABRIR POPOVER');
+
+    const popover = await this.popoverCtrl.create({
+      component: PopoverAssistComponent,
+      event: evento, 
+    });
+
+    await popover.present();
+
+  }
 
 }

@@ -1,10 +1,10 @@
-<ion-header [translucent]="true">
-  <ion-toolbar color="primary">
-    <ion-title>
-      {{ title }}
-    </ion-title>
-    <ion-avatar class="p-2" slot="end">
-      <img class="border border-light" src="{{ image }}"/>
-    </ion-avatar>
-  </ion-toolbar>
-</ion-header>
+<ion-toolbar color="primary">
+  <ion-title>
+    {{ title }}
+  </ion-title>
+  <ion-buttons slot="end">
+      <ion-avatar (click)="openPopoverMenu( $event )" class="p-2">
+        <img class="border border-light" src="{{ image }}"/>
+      </ion-avatar>
+  </ion-buttons>
+</ion-toolbar>

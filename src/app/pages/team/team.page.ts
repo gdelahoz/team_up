@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSegment } from '@ionic/angular';
+import { IonSegment, PopoverController } from '@ionic/angular';
+import { PopoverMenuComponent } from 'src/app/components/popover-menu/popover-menu.component';
 
 @Component({
   selector: 'app-team',
@@ -11,7 +12,7 @@ export class teamPage implements OnInit{
 
   @ViewChild(IonSegment) segment: IonSegment;
 
-  constructor() {}
+  constructor( private popoverCtrl: PopoverController ) {}
 
   ngOnInit(){
     //this.segment.value = "players";

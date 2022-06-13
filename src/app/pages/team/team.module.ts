@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { teamPage } from './team.page';
 
 import { teamPageRoutingModule } from './team-routing.module';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { teamPageRoutingModule } from './team-routing.module';
     FormsModule,
     RouterModule.forChild([{ path: '', component: teamPage }]),
     teamPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [teamPage]
 })

@@ -1,12 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="primary">
-    <ion-title>
-      Equipo
-    </ion-title>
-    <ion-avatar class="p-2" slot="end">
-      <img class="border border-light" src="../../../assets/img/motobomba.jpeg"/>
-    </ion-avatar>
-  </ion-toolbar>
+  <team-header title="Equipo" image="../../../assets/img/motobomba.jpeg"></team-header>
 
   <ion-toolbar color="primary">
     <ion-segment [value]="default" (ionChange)="segmentChanged($event)">
@@ -93,6 +86,7 @@
             <ion-item-option color="danger">Eliminar</ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
+        
         <ion-item-divider>
           <ion-label class="fw-bold">Mediocampistas</ion-label> 
         </ion-item-divider>
