@@ -3,7 +3,7 @@ import { PopoverController } from '@ionic/angular';
 import { PopoverMenuComponent } from '../popover-menu/popover-menu.component';
 
 @Component({
-  selector: 'team-header',
+  selector: 'team-toolbar',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
