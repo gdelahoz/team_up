@@ -1,0 +1,27 @@
+ion-toolbar {
+    --background: transparent;
+    position: absolute;
+    color: #fff;
+}
+
+form{
+    height: 100%;
+}
+
+ion-select {
+    width: 100%;
+}
+
+.logo{
+    position: absolute;
+    background: #fff;
+    bottom: 78%;
+    border-radius: 50%;
+    padding: 1rem;
+    left: 28%;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.1));
+}
+
+.pt-7{
+    padding-top: 4rem;
+}

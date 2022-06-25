@@ -1,9 +1,45 @@
-<ion-header>
+<!--<ion-header>
   <ion-toolbar>
     <ion-title>login</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header>-->
 
-<ion-content>
-
+<ion-content color="primary">
+  <form class="d-flex justify-content-center align-items-center h-100" #form="ngForm" (ngSubmit)="login(form)">
+    <ion-grid>
+      <ion-row color="primary" class="mb-3" justify-content-center>
+        <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+          <div  class="card p-4">
+            <div class="logo d-flex justify-content-center">
+              <img  width="150px" src="assets/img/logo.png">
+            </div>
+            <div class="card-content">
+              <div class="text-center pt-7">
+                <h3 class="text-dark fw-bold">⚽Inicia sesión⚽</h3>
+              </div>
+              <ion-item class="mb-2">
+                <ion-label position="stacked">Correo</ion-label>
+                <ion-input name="email" type="email" placeholder="tu@correo.com" ngModel required></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Contraseña</ion-label>
+                <ion-input name="password" type="password" placeholder="Contraseña" ngModel required></ion-input>
+              </ion-item>
+              <div class="pt-3 d-flex justify-content-center gap-2">
+                <ion-button color="secondary" type="submit" [disabled]="form.invalid">Ingresar</ion-button>
+              </div>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="px-3" justify-content-center>
+        <ion-col size="12">
+          <div class="text-center">
+            Si no tienes una cuenta, puede <a class="text-light" routerLink='/register'>
+          Registrarse</a> primero!
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-content>
