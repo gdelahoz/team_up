@@ -1,7 +1,18 @@
+ion-content {
+    --background: linear-gradient(180deg, #ff7c36 0%, #152D93 85%);
+}
+
 ion-toolbar {
-    --background: transparent;
-    position: absolute;
+    --background: #ff7c36;
     color: #fff;
+}
+
+ion-header {
+    --background: #ff7c36;
+}
+
+.form-control{
+    width: min-content !important;
 }
 
 form{

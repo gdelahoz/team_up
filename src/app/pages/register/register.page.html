@@ -3,39 +3,48 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Registro</ion-title>
+    <ion-title>Regresar </ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content class="h-100" color="primary">
-  <form class="d-flex justify-content-center align-items-center" #form="ngForm" (ngSubmit)="login(form)">
+<ion-content>
+  <form #form="ngForm" (ngSubmit)="login(form)">
     <ion-grid>
-      <ion-row color="primary" class="mb-3" justify-content-center>
+      <ion-row color="primary" class="mb-3 justify-content-center">
         <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
           <div  class="card p-4">
             <!--<div class="logo d-flex justify-content-center">
               <img  width="150px" src="assets/img/logo.png">
             </div>-->
             <div class="card-content">
-              <div class="text-center">
-                <h3 class="text-dark fw-bold">⚽Bienvenido⚽</h3>
+              <div class="text-dark mb-2">
+                <ion-label class="fs-3 fw-bold">Registro ✍🏻</ion-label><br>
+                <ion-label>Digita tus datos, elige tu rol y registrate para disfrutar lo que ofrece <b>Team Up Soccer</b> para ti</ion-label>
               </div>
-              <ion-item class="mb-2">
+              <ion-item class="mb-2 ion-no-padding">
                 <ion-label position="stacked">Nombre</ion-label>
                 <ion-input name="name" type="name" placeholder="Luis Fernado" ngModel required></ion-input>
               </ion-item>
-              <ion-item class="mb-2">
+              <ion-item class="mb-2 ion-no-padding ion-no-padding">
                 <ion-label position="stacked">Apellidos</ion-label>
                 <ion-input name="name" type="family-name" placeholder="Díaz Marulanda" ngModel required></ion-input>
               </ion-item>
-              <ion-item class="mb-2">
+              <ion-item class="mb-2 ion-no-padding">
                 <ion-label position="stacked">Correo</ion-label>
                 <ion-input name="email" type="email" placeholder="tu@correo.com" ngModel required></ion-input>
               </ion-item>
-              <ion-item class="mb-2">
+              <ion-item class="mb-2 ion-no-padding">
+                <ion-label position="stacked">Telefono</ion-label>
+                <ion-input name="email" type="number" placeholder="300 123 4545" ngModel required></ion-input>
+              </ion-item>
+              <ion-item class="mb-2 ion-no-padding">
+                <ion-label>Nacimiento</ion-label>
+                <input class="form-control" type="date">
+              </ion-item>
+              <ion-item class="mb-2 ion-no-padding">
                 <ion-label position="stacked">Contraseña</ion-label>
                 <ion-input name="password" type="password" placeholder="Contraseña" ngModel required></ion-input>
               </ion-item>
-              <ion-item class="mb-2">
+              <ion-item class="mb-2 ion-no-padding">
                 <ion-label position="stacked">Confirmar contraseña</ion-label>
                 <ion-input name="password" type="password" placeholder="Contraseña" ngModel required></ion-input>
               </ion-item>
@@ -47,8 +56,10 @@
                   </ion-select>
                 </ion-item>
               </ion-list>
-              <div class="pt-3 d-flex justify-content-center gap-2">
-                <ion-button color="secondary" type="submit" [disabled]="form.invalid">Registrarme</ion-button>
+              <div class="pt-3 d-flex justify-content-end gap-2">
+                <ion-button color="secondary" type="submit" [disabled]="form.invalid">
+                  Registrarme <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+                </ion-button>
               </div>
             </div>
           </div>

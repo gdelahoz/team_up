@@ -9,6 +9,7 @@ import { PopoverMenuComponent } from '../popover-menu/popover-menu.component';
 })
 export class HeaderComponent implements OnInit {
   @Input() title: string;
+  @Input() subtitle: string;
   @Input() image: string;
 
   constructor( private popoverCtrl: PopoverController ) { }
@@ -20,7 +21,8 @@ export class HeaderComponent implements OnInit {
 
     const popover = await this.popoverCtrl.create({
       component: PopoverMenuComponent,
-      event: evento, 
+      event: evento,
+      dismissOnSelect: true
     });
 
     await popover.present();

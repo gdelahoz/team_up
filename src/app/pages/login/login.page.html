@@ -4,39 +4,42 @@
   </ion-toolbar>
 </ion-header>-->
 
-<ion-content color="primary">
+<ion-content>
   <form class="d-flex justify-content-center align-items-center h-100" #form="ngForm" (ngSubmit)="login(form)">
     <ion-grid>
-      <ion-row color="primary" class="mb-3" justify-content-center>
+      <ion-row color="primary" class="mb-3 justify-content-center">
         <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
           <div  class="card p-4">
-            <div class="logo d-flex justify-content-center">
-              <img  width="150px" src="assets/img/logo.png">
+            <div class="logo">
+              <img width="160px" src="assets/img/logoteamup.png">
             </div>
             <div class="card-content">
-              <div class="text-center pt-7">
-                <h3 class="text-dark fw-bold">⚽Inicia sesión⚽</h3>
+              <div class="text-dark pt-7 pb-2">
+                <ion-label class="fw-bold fs-3">Bienvenido, futbolero✌️</ion-label><br>
+                <ion-label>Ingresa y gestiona todos los eventos de tu equipo de una forma fácil e intuitiva</ion-label>
               </div>
-              <ion-item class="mb-2">
+              <ion-item class="mb-2 ion-no-padding">
                 <ion-label position="stacked">Correo</ion-label>
                 <ion-input name="email" type="email" placeholder="tu@correo.com" ngModel required></ion-input>
               </ion-item>
-              <ion-item>
+              <ion-item class="ion-no-padding">
                 <ion-label position="stacked">Contraseña</ion-label>
                 <ion-input name="password" type="password" placeholder="Contraseña" ngModel required></ion-input>
               </ion-item>
-              <div class="pt-3 d-flex justify-content-center gap-2">
-                <ion-button color="secondary" type="submit" [disabled]="form.invalid">Ingresar</ion-button>
+              <div class="pt-3 d-flex justify-content-end gap-2">
+                <ion-button color="secondary" type="submit" [disabled]="form.invalid">
+                  Ingresar <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+                </ion-button>
               </div>
             </div>
           </div>
         </ion-col>
       </ion-row>
-      <ion-row class="px-3" justify-content-center>
+      <ion-row class="px-3">
         <ion-col size="12">
-          <div class="text-center">
-            Si no tienes una cuenta, puede <a class="text-light" routerLink='/register'>
-          Registrarse</a> primero!
+          <div class="text-center text-light">
+            Si no tienes una cuenta, puedes iniciar<a class="text-light fw-bold" routerLink='/register'>
+          Registrandote</a>
           </div>
         </ion-col>
       </ion-row>

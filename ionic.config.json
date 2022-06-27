@@ -1,5 +1,7 @@
 {
   "name": "team_up",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

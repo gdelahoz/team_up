@@ -27,4 +27,8 @@ export class teamPage implements OnInit{
 
   }
 
+  deletePlayerModal(){}
+
+  editPlayer(){}
+
 }

@@ -9,3 +9,13 @@
     top: 8px;
     z-index: 999;
 }
+
+.fs-small{
+    font-size: 0.8rem;
+}
+
+.nowrap{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

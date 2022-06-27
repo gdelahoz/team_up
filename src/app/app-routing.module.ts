@@ -7,8 +7,12 @@ const routes: Routes = [
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   },
   {
-    path: 'tabs',
+    path: '',
     loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: 'register',
@@ -17,7 +21,12 @@ const routes: Routes = [
   {
     path: 'password-reset',
     loadChildren: () => import('./pages/password-reset/password-reset.module').then( m => m.PasswordResetPageModule)
+  },
+  {
+    path: 'create-team',
+    loadChildren: () => import('./pages/create-team/create-team.module').then( m => m.CreateTeamPageModule)
   }
+
 ];
 @NgModule({
   imports: [
