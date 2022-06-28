@@ -1,4 +1,5 @@
 import { Component, NgModule, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-calendar',
@@ -9,10 +10,10 @@ export class calendarPage implements OnInit{
 
   ngOnInit(){}
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   openCreateEvent(){
-    console.log('CREAR EVENTO');
+    this.router.navigate(['tabs/calendar/create-event']);
   }
 
 }

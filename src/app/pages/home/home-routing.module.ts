@@ -6,6 +6,10 @@ const routes: Routes = [
   {
     path: '',
     component: homePage,
+  },
+  {
+    path: 'create-announcements',
+    loadChildren: () => import('../create-announcements/create-announcements.module').then( m => m.CreateAnnouncementsPageModule)
   }
 ];
 

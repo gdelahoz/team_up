@@ -11,6 +11,7 @@ export class HeaderComponent implements OnInit {
   @Input() title: string;
   @Input() subtitle: string;
   @Input() image: string;
+  @Input() hideProfilePhoto: boolean = false;
 
   constructor( private popoverCtrl: PopoverController ) { }
 

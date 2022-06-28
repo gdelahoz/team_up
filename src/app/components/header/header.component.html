@@ -1,10 +1,13 @@
 <ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button></ion-back-button>
+  </ion-buttons>
   <ion-title class="py-3">
     <ion-label class="subtitle">{{ subtitle }}</ion-label><br>
     <ion-label class="title">{{ title }}</ion-label>
   </ion-title>
   <ion-buttons slot="end">
-      <ion-avatar (click)="openPopoverMenu( $event )" class="p-2">
+      <ion-avatar *ngIf="!hideProfilePhoto" (click)="openPopoverMenu( $event )" class="p-2">
         <img class="border border-light" src="{{ image }}"/>
       </ion-avatar>
   </ion-buttons>

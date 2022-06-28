@@ -1,0 +1,63 @@
+<ion-header>
+  <team-toolbar 
+    subtitle="Creador de" 
+    title="Eventos" 
+    image="../../../assets/img/motobomba.jpeg"
+    [hideProfilePhoto]="true">
+  </team-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #form="ngForm" (ngSubmit)="login(form)">
+    <ion-grid>
+      <ion-row color="primary" class="mb-3 justify-content-center">
+        <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+          <ion-card class="p-4">
+            <div>
+              <ion-item class="ion-no-padding mb-2">
+                <ion-label position="stacked">Tipo de evento</ion-label>
+                <ion-select class="w-100" placeholder="Seleccionar">
+                  <ion-select-option value="match">Partido</ion-select-option>
+                  <ion-select-option value="train">Entrenamiento</ion-select-option>
+                  <ion-select-option value="social">Social</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item class="mb-2 ion-no-padding">
+                <ion-label position="stacked">Lugar del evento</ion-label>
+                <ion-input name="place" type="text" placeholder="Polideportivo Pibe Valderrama" ngModel required></ion-input>
+              </ion-item>
+              <ion-item class="mb-2 ion-no-padding">
+                <ion-label  class="mb-3" position="stacked">Imagen del lugar</ion-label>
+                <input style="font-size: 0.8rem;" class="form-control" type="file">
+              </ion-item>
+              <ion-item class="mb-2 ion-no-padding">
+                <ion-label class="mb-2" position="stacked">Hora comienzo y final</ion-label>
+                <ion-row>
+                  <ion-col size="6">
+                    <input class="form-control" name="startTime" type="time" required>
+                  </ion-col>
+                  <ion-col size="6">
+                    <input class="form-control" name="endTime" type="time" required>
+                  </ion-col>
+                </ion-row>
+              </ion-item>
+              <ion-item class="mb-2 ion-no-padding">
+                <ion-label>Fecha del evento</ion-label>
+                <input class="form-control" type="date">
+              </ion-item>
+              <ion-item class="mb-2 ion-no-padding">
+                <ion-label position="stacked">Informacion adicional</ion-label>
+                <ion-textarea name="description" rows="6"  placeholder="Escriba aquí..." ngModel required></ion-textarea>
+              </ion-item>
+              <div class="pt-3 d-flex justify-content-end gap-2">
+                <ion-button color="secondary" type="submit" [disabled]="form.invalid">
+                  Crear <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+                </ion-button>
+              </div>
+            </div>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'team-card-advertising',
@@ -9,12 +10,12 @@ export class CardAdvertisingComponent implements OnInit {
   @Input() title: string;
   @Input() subtitle: string;
   
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {}
 
   editAdvertising(){
-    console.log('Editar anuncio');
+    this.router.navigate(['tabs/home/create-announcements']);
   }
 
 }
