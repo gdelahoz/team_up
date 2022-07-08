@@ -20,11 +20,11 @@
               </div>
               <ion-item class="mb-2 ion-no-padding">
                 <ion-label position="stacked">Correo</ion-label>
-                <ion-input name="email" type="email" placeholder="tu@correo.com" ngModel required></ion-input>
+                <ion-input name="email" type="email" placeholder="tu@correo.com" [(ngModel)]="usuario.email" required></ion-input>
               </ion-item>
               <ion-item class="ion-no-padding">
                 <ion-label position="stacked">Contraseña</ion-label>
-                <ion-input name="password" type="password" placeholder="Contraseña" ngModel required></ion-input>
+                <ion-input name="password" type="password" placeholder="Contraseña" [(ngModel)]="usuario.password" required></ion-input>
               </ion-item>
               <div class="pt-3 d-flex justify-content-end gap-2">
                 <ion-button color="secondary" type="submit" [disabled]="form.invalid">

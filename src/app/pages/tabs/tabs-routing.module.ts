@@ -20,10 +20,6 @@ const routes: Routes = [
         loadChildren: () => import('../team/team.module').then(m => m.teamPageModule)
       },
       {
-        path: 'create-team',
-        loadChildren: () => import('../create-team/create-team.module').then( m => m.CreateTeamPageModule)
-      },
-      {
         path: '',
         redirectTo: '/tabs/home',
         pathMatch: 'full'

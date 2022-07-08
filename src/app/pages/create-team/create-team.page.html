@@ -1,9 +1,41 @@
-<ion-header>
+<ion-header  class="ion-no-border">
   <ion-toolbar>
-    <ion-title>create-team</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Regresar </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-
+  <form #form="ngForm" (ngSubmit)="successRegister(form)">
+    <ion-grid>
+      <ion-row color="primary" class="mb-3 justify-content-center">
+        <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+          <div  class="card p-4">
+            <div class="card-content">
+              <div class="text-dark mb-2">
+                <ion-label class="fs-3 fw-bold">Registro de equipo 🛡️</ion-label>
+              </div>
+              <ion-item class="mb-2 ion-no-padding">
+                <ion-label position="stacked">Nombre del equipo</ion-label>
+                <ion-input name="name" type="name" placeholder="Real Madrid CF" ngModel required></ion-input>
+              </ion-item>
+              <ion-item class="mb-2 ion-no-padding">
+                <ion-label  class="mb-3" position="stacked">Escudo</ion-label>
+                <input style="font-size: 0.8rem;" class="form-control mb-1" type="file">
+              </ion-item>
+              <div class="pt-3 d-flex justify-content-end gap-2">
+                <ion-button color="tertiary" type="button">
+                  Unirme
+                </ion-button>
+                <ion-button color="secondary" type="submit" [disabled]="form.invalid">
+                  Registrar equipo<ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+                </ion-button>
+              </div>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-content>
