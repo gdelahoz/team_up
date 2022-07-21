@@ -1,3 +1,5 @@
+import { InteractionService } from './../../services/interaction.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -8,11 +10,17 @@ import { Router } from '@angular/router';
 })
 export class PopoverMenuComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private auth: AuthService,
+    private interaction: InteractionService
+  ) { }
 
   ngOnInit() {}
 
   goToLogin(){
+    this.auth.logout();
+    this.interaction.presentToast('Sesión finalizada.');
     this.router.navigate(['/login']);
   }
 
