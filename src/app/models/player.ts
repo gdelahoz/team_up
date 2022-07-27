@@ -1,15 +1,14 @@
+import { Team } from './team';
+import { UserI } from './user';
 export interface Player {
     id?: string;
-    userId: string;
+    userId?: string;
+    teamId?: string;
 
     weight: string;
     height: string;
-    age: string;
     position: string;
-    secondPosition: string;
-    dorsal: string;
-    attendance: string;
-
-    createdAt: string;
-    modifiedAt: string;
+    secondPosition?: string;
+    dorsal?: string;
+    attendance?: string | number;
 }

@@ -3,14 +3,14 @@ import { Player } from "./player";
 
 export interface Team {
     id?: string;
+    
+    players?: Player[];
+    coaches?: Coach[];
+
     name: string;
-    imgLogo: string;
+    imgLogo?: string;
+    description?: string;
     country: string;
-    players: Player[];
-    coachs: Coach[];
     campus: string;
     birthday: string;
-
-    createdAt: string;
-    modifiedAt: string;
 }

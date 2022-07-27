@@ -1,3 +1,5 @@
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { UserI } from './../models/user';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
@@ -8,7 +10,8 @@ export class AuthService {
 
   constructor(
     private fireAuth: AngularFireAuth
-  ) { }
+    
+    ) { }
 
   login(correo: string, password: string){
     return this.fireAuth.signInWithEmailAndPassword(correo, password);
@@ -16,5 +19,9 @@ export class AuthService {
 
   logout(){
     this.fireAuth.signOut();
+  }
+
+  register(email: string, password: string){
+    return this.fireAuth.createUserWithEmailAndPassword(email, password);
   }
 }

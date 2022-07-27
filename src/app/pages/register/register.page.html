@@ -7,60 +7,156 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <form #form="ngForm" (ngSubmit)="success(form)">
+  <form>
     <ion-grid>
       <ion-row color="primary" class="mb-3 justify-content-center">
         <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
-          <div  class="card p-4">
-            <!--<div class="logo d-flex justify-content-center">
-              <img  width="150px" src="assets/img/logo.png">
-            </div>-->
+          <div  class="card p-4 mb-3">
             <div class="card-content">
               <div class="text-dark mb-2">
                 <ion-label class="fs-3 fw-bold">Registro ✍🏻</ion-label><br>
-                <ion-label>Digita tus datos, elige tu rol y registrate para disfrutar lo que ofrece <b>Team Up Soccer</b> para ti</ion-label>
+                <ion-label>Digita tus datos, elige tu rol y registrate para disfrutar lo que ofrece <b>Team Up Soccer</b> para tu equipo.</ion-label>
               </div>
               <ion-item class="mb-2 ion-no-padding">
                 <ion-label position="stacked">Nombre</ion-label>
-                <ion-input name="name" type="name" placeholder="Luis Fernado" ngModel required></ion-input>
+                <ion-input name="name" type="name" placeholder="Luis Fernado" #name required></ion-input>
               </ion-item>
               <ion-item class="mb-2 ion-no-padding ion-no-padding">
                 <ion-label position="stacked">Apellidos</ion-label>
-                <ion-input name="name" type="family-name" placeholder="Díaz Marulanda" ngModel required></ion-input>
+                <ion-input name="lastname" type="family-name" placeholder="Díaz Marulanda" #lastname required></ion-input>
               </ion-item>
               <ion-item class="mb-2 ion-no-padding">
                 <ion-label position="stacked">Correo</ion-label>
-                <ion-input name="email" type="email" placeholder="tu@correo.com" ngModel required></ion-input>
+                <ion-input name="email" type="email" placeholder="tu@correo.com" #email required></ion-input>
               </ion-item>
               <ion-item class="mb-2 ion-no-padding">
                 <ion-label position="stacked">Telefono</ion-label>
-                <ion-input name="email" type="number" placeholder="300 123 4545" ngModel required></ion-input>
+                <ion-input name="tel" type="number" placeholder="300 123 4545" #tel required></ion-input>
               </ion-item>
               <ion-item class="mb-2 ion-no-padding">
                 <ion-label>Nacimiento</ion-label>
-                <input class="form-control" type="date">
+                <input class="form-control" type="date" #birthday required>
               </ion-item>
               <ion-item class="mb-2 ion-no-padding">
                 <ion-label position="stacked">Contraseña</ion-label>
-                <ion-input name="password" type="password" placeholder="Contraseña" ngModel required></ion-input>
+                <ion-input name="password" type="password" placeholder="Contraseña" #password required></ion-input>
               </ion-item>
-              <ion-item class="mb-2 ion-no-padding">
+              <!--<ion-item class="mb-2 ion-no-padding">
                 <ion-label position="stacked">Confirmar contraseña</ion-label>
-                <ion-input name="password" type="password" placeholder="Contraseña" ngModel required></ion-input>
-              </ion-item>
+                <ion-input name="password" type="password" placeholder="Contraseña" required></ion-input>
+              </ion-item>-->
               <ion-list>
-                <ion-item>
-                  <ion-select placeholder="Seleccionar rol">
-                    <ion-select-option value="player">🏃🏻‍♂️Jugador/a</ion-select-option>
-                    <ion-select-option value="trainer">✍🏻Entrenador/a</ion-select-option>
+                <ion-item class="ion-no-padding">
+                  <ion-select placeholder="Seleccionar ocupación" (ionChange)="onSelectChange($event)" required>
+                    <ion-select-option value="Entrenador">Entrenador/a</ion-select-option>
+                    <ion-select-option value="Asistente de entrenador">Asistente Entrenador/a</ion-select-option>
+                    <ion-select-option value="Jugador">Jugador/a</ion-select-option>
                   </ion-select>
                 </ion-item>
               </ion-list>
-              <div class="pt-3 d-flex justify-content-end gap-2">
-                <ion-button color="secondary" type="submit" [disabled]="form.invalid">
-                  Siguiente paso <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+              <!--<div *ngIf="role == 'coach'" class="pt-3 d-flex justify-content-end gap-2">
+                <ion-button color="secondary" type="submit" (click)="register(name, lastname, email, tel, birthday, password)">
+                  Registrarme <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
                 </ion-button>
-              </div>
+              </div>-->
+            </div>
+          </div>
+          <div *ngIf="role == 'Entrenador'" class="card p-4">
+            <div class="text-dark mb-2">
+              <ion-label class="fs-3 fw-bold">Crear un equipo 🛡️</ion-label><br>
+              <ion-label>Digita los datos de tu equipo para crear uno.</ion-label>
+            </div>
+            <ion-item class="mb-2 ion-no-padding">
+              <ion-label position="stacked">Nombre del equipo</ion-label>
+              <ion-input name="teamname" type="text" placeholder="Club Deportivo Motobomba FC" #teamname required></ion-input>
+            </ion-item>
+            <ion-list>
+              <ion-item class="ion-no-padding">
+                <ion-select placeholder="País de origen" (ionChange)="onSelectCountry($event)" required>
+                  <ion-select-option value="Colombia">Colombia</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-list>
+            <ion-item class="mb-2 ion-no-padding">
+              <ion-label position="stacked">Sede deportiva</ion-label>
+              <ion-input name="campus" type="text" placeholder="Polideportivo Pibe Valderrama" #campus required></ion-input>
+            </ion-item>
+            <ion-item class="mb-2 ion-no-padding">
+              <ion-label>Fecha de creación</ion-label>
+              <input class="form-control" type="date" #teamBirthday required>
+            </ion-item>
+            <div class="pt-3 d-flex justify-content-end gap-2">
+              <ion-button color="secondary" type="submit" (click)="registerCoach(name, lastname, email, tel, birthday, password, teamname, campus, teamBirthday)">
+                Registrarme <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+
+          <div *ngIf="role == 'Asistente de entrenador'" class="card p-4">
+            <div class="text-dark mb-2">
+              <ion-label class="fs-3 fw-bold">Unirme a un equipo 🛡️</ion-label><br>
+              <ion-label>Digita el codigo de equipo que te ha compartido el entrenador para unirte a uno.</ion-label>
+            </div>
+            <ion-item class="mb-2 ion-no-padding">
+              <ion-label position="stacked">Codigo de equipo</ion-label>
+              <ion-input name="teamId" type="text" placeholder="Escriba el codigo de equipo" #teamId required></ion-input>
+            </ion-item>
+            <div class="pt-3 d-flex justify-content-end gap-2">
+              <ion-button color="secondary" type="submit" (click)="registerAssistCoach(name, lastname, email, tel, birthday, password, teamId)">
+                Registrarme y unirme <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+
+          <div *ngIf="role == 'Jugador'" class="card p-4">
+            <div class="text-dark mb-2">
+              <ion-label class="fs-3 fw-bold">Jugador 🏃🏻‍♂️</ion-label><br>
+              <ion-label>Digita tus datos de jugador y el codigo de equipo para unirte a uno.</ion-label>
+            </div>
+            <ion-item class="mb-2 ion-no-padding">
+              <ion-label position="stacked">Altura(cm)</ion-label>
+              <ion-input name="height" type="number" placeholder="175" #height required></ion-input>
+            </ion-item>
+            <ion-item class="mb-2 ion-no-padding">
+              <ion-label position="stacked">Peso(kg)</ion-label>
+              <ion-input name="weight" type="number" placeholder="78" #weight required></ion-input>
+            </ion-item>
+            <ion-list>
+              <ion-item class="ion-no-padding">
+                <ion-select placeholder="Posición" #position required>
+                  <ion-select-option value="Portero">Portero</ion-select-option>
+                  <ion-select-option value="Defensor central">Defensor</ion-select-option>
+                  <ion-select-option value="Lateral derecho">Lateral derecho</ion-select-option>
+                  <ion-select-option value="Lateral izquierdo">Lateral izquierdo</ion-select-option>
+                  <ion-select-option value="Mediocampista">Mediocampista</ion-select-option>
+                  <ion-select-option value="Extremo derecho">Extremo derecho</ion-select-option>
+                  <ion-select-option value="Extremo izquierdo">Extremo izquierdo</ion-select-option>
+                  <ion-select-option value="Delantero centro">Delantero centro</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-list>
+            <ion-list>
+              <ion-item class="ion-no-padding">
+                <ion-select placeholder="Posición segundaria (opcional)" #secondPosition>
+                  <ion-select-option value="Portero">Portero</ion-select-option>
+                  <ion-select-option value="Defensor central">Defensor</ion-select-option>
+                  <ion-select-option value="Lateral derecho">Lateral derecho</ion-select-option>
+                  <ion-select-option value="Lateral izquierdo">Lateral izquierdo</ion-select-option>
+                  <ion-select-option value="Mediocampista">Mediocampista</ion-select-option>
+                  <ion-select-option value="Extremo derecho">Extremo derecho</ion-select-option>
+                  <ion-select-option value="Extremo izquierdo">Extremo izquierdo</ion-select-option>
+                  <ion-select-option value="Delantero centro">Delantero centro</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-list>
+            <ion-item class="mb-2 ion-no-padding">
+              <ion-label position="stacked">Codigo de equipo</ion-label>
+              <ion-input name="teamId" type="text" placeholder="Escriba el codigo de equipo" #teamId required></ion-input>
+            </ion-item>
+            <div class="pt-3 d-flex justify-content-end gap-2">
+              <ion-button color="secondary" type="submit" (click)="registerPlayer(name, lastname, email, tel, birthday, password, height, weight, position, secondPosition, teamId)">
+                Registrarme y unirme <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+              </ion-button>
             </div>
           </div>
         </ion-col>

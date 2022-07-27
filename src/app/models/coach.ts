@@ -1,9 +1,9 @@
+import { Team } from './team';
+import { UserI } from './user';
 export interface Coach {
     id?: string;
-    userId: string;
+    userId?: string;
+    teamId: string;
 
-    rolCoach: string;
-
-    createdAt: string;
-    modifiedAt: string;
+    typeCoach?: string;
 }

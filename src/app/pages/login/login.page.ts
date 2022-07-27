@@ -27,17 +27,17 @@ export class LoginPage implements OnInit {
 
   //Función asincrona de login, recibe la promesa de firbase implementada en el servicio de Auth
   async login(form){
-    //await this.interaction.showLoading('Ingresando...');
+    await this.interaction.showLoading('Ingresando...');
     const res = await this.auth.login(this.usuario.email, this.usuario.password).catch(error => {
       console.log('Error');
-      //this.interaction.closeLoading;
-      this.interaction.presentToast('Usuario o contraseña invalido.')
+      this.interaction.closeLoading();
+      this.interaction.presentToast('Usuario o contraseña invalido.');
     });
 
     if (res) {
       console.log('res -> ', res);
-      //this.interaction.closeLoading;
-      this.interaction.presentToast('Usuario ingresado con exito.')
+      this.interaction.closeLoading();
+      this.interaction.presentToast('Usuario ingresado con exito.');
       this.router.navigate(['/tabs/home']);
     }
   }
