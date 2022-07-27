@@ -1,6 +1,6 @@
 <ion-card class="m-3">
   <div class="w-100 banner-card">
-    <img class="h-100 w-100" src="../../../assets/img/mfc_banner.jpeg" alt="asd">
+    <img class="h-100 w-100" [src]="(image == '') ? '../../../assets/img/no-image.png' : image" alt="Banner team">
   </div>
   <ion-card-header>
     <div class="d-flex align-items-center ion-justify-content-between">
@@ -13,7 +13,7 @@
     <ion-card-title>{{ title }}</ion-card-title>
   </ion-card-header>
 
-  <ion-card-content>
-    <p>{{ info }}</p>
+  <ion-card-content (click)="editInfoTeam()" button>
+    <p>{{ (info !== undefined) ? info : 'No hay una descripción en el equipo, selecciona aquí para agregar una.' }}</p>
   </ion-card-content>
 </ion-card>

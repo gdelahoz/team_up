@@ -8,7 +8,7 @@
   </ion-title>
   <ion-buttons slot="end">
       <ion-avatar *ngIf="!hideProfilePhoto" (click)="openPopoverMenu( $event )" class="p-2">
-        <img class="border border-light" src="{{ image }}"/>
+        <img class="border border-light" [src]="(image == '') ? '../../../assets/img/imgProfile.png' : image"/>
       </ion-avatar>
   </ion-buttons>
 </ion-toolbar>

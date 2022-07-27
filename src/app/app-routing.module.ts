@@ -19,10 +19,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
   },
   {
-    path: 'create-team',
-    loadChildren: () => import('./pages/create-team/create-team.module').then( m => m.CreateTeamPageModule)
-  },
-  {
     path: 'password-reset',
     loadChildren: () => import('./pages/password-reset/password-reset.module').then( m => m.PasswordResetPageModule)
   },

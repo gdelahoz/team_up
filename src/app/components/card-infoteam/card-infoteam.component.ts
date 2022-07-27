@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -11,8 +12,11 @@ export class CardInfoteamComponent implements OnInit {
   @Input() info: string;
   @Input() image: string;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {}
 
+  editInfoTeam(){
+    this.router.navigate(['/tabs/home/team-update']);
+  }
 }

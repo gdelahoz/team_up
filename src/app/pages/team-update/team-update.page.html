@@ -1,0 +1,65 @@
+<ion-header  class="ion-no-border">
+  <team-toolbar 
+    subtitle="Actualizar datos" 
+    [title]="teamData.name"
+    [hideProfilePhoto]="true">
+  </team-toolbar>
+</ion-header>
+
+<ion-content>
+  <form>
+    <ion-grid>
+      <ion-row color="primary" class="mb-3 justify-content-center">
+        <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+          <ion-card  class="p-4 mb-3">
+            <div>
+              <ion-item class="mb-2 ion-no-padding">
+                <ion-label position="stacked">Nombre del equipo</ion-label>
+                <ion-input name="teamname" type="text" [value]="teamData.name" #name></ion-input>
+              </ion-item>
+              <ion-list>
+                <ion-item class="ion-no-padding">
+                  <ion-label position="stacked">País de origen</ion-label>
+                  <ion-select placeholder="País de origen" [value]="teamData.country" #country>
+                    <ion-select-option value="Colombia">Colombia</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-list>
+              <ion-item class="mb-2 ion-no-padding">
+                <ion-label position="stacked">Sede deportiva</ion-label>
+                <ion-input name="campus" type="text" [value]="teamData.campus" #campus></ion-input>
+              </ion-item>
+              <ion-item class="mb-2 ion-no-padding">
+                <ion-label>Fundado el</ion-label>
+                <input class="form-control min-content" type="date" [value]="teamData.birthday" #birthday>
+              </ion-item>
+              <ion-item class="mb-2 ion-no-padding">
+                <ion-label position="stacked">Descripción</ion-label>
+                <ion-textarea name="description" rows="5" [value]="teamData.description" #description></ion-textarea>
+              </ion-item>
+              <div class="pt-3 d-flex justify-content-end gap-2">
+                <ion-button color="tertiary" type="submit" (click)="onSelectImgUpdate()">
+                  Imagen <ion-icon slot="end" name="image"></ion-icon>
+                </ion-button>
+                <ion-button color="secondary" type="submit" (click)="updateTeam(name, description, country, campus, birthday)">
+                  Actualizar <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+                </ion-button>
+              </div>
+            </div>
+          </ion-card>
+          <ion-card *ngIf="imgState == true" class="p-4">
+            <ion-item class="mb-2 ion-no-padding">
+              <ion-label  class="mb-3" position="stacked">Imagen del equipo</ion-label>
+              <input style="font-size: 0.8rem;" accept="image/*" class="form-control mb-1" (change)="uploadImg($event)" type="file" #imgLogo>
+            </ion-item>
+            <div class="pt-3 d-flex justify-content-end gap-2">
+              <ion-button color="secondary" type="submit" (click)="updateImgTeam()">
+                Actualizar imagen
+              </ion-button>
+            </div>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

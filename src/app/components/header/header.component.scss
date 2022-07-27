@@ -7,7 +7,10 @@
 
 .title{
     font-weight: 700;
-    font-size: 36px;
+    font-size: 32px;
     line-height: 42px;
     color: #FE9402;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }

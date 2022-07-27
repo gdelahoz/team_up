@@ -1,20 +1,20 @@
 <ion-header class="ion-no-border">
-  <team-toolbar subtitle="Bienvenido" title="Gabriel 👋" image="../../../assets/img/motobomba.jpeg"></team-toolbar>
+  <team-toolbar subtitle="Bienvenido" [title]="userData.name + ' 👋'" [image]="userData.imgProfile"></team-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <!--<ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Motobomba FC</ion-title>
     </ion-toolbar>
-  </ion-header>
+  </ion-header>-->
   
   <team-card-advertising title="Entrenamiento aplazado" subtitle="Nick Velasquez"></team-card-advertising>
 
   <team-card-infoteam 
-    image="../../../assets/img/mfc_banner.jpeg" 
-    team="Motobomba FC" 
+    [image]="teamData.imgLogo" 
+    [team]="teamData.name" 
     title="Nuestro equipo" 
-    info="Sómos un equipo de futbol amateur nacido en el barrio Ciudadela 20 de Julio buscando promover el deporte.">
+    [info]="teamData.description">
   </team-card-infoteam>
 </ion-content>

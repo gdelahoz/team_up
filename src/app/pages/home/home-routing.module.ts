@@ -10,7 +10,12 @@ const routes: Routes = [
   {
     path: 'create-announcements',
     loadChildren: () => import('../create-announcements/create-announcements.module').then( m => m.CreateAnnouncementsPageModule)
+  },
+  {
+    path: 'team-update',
+    loadChildren: () => import('../team-update/team-update.module').then( m => m.TeamUpdatePageModule)
   }
+
 ];
 
 @NgModule({

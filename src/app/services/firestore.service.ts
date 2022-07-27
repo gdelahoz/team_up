@@ -2,8 +2,10 @@ import { Player } from './../models/player';
 import { Team } from './../models/team';
 import { UserI } from './../models/user';
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Coach } from '../models/coach';
+import { map } from 'rxjs/operators'
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +23,9 @@ export class FirestoreService {
 
   //Servicio de registro Entrenadores
   async createCoach(user: UserI, teamId: string, type: string){
-    const result = await this.firestore.collection('Users').add(user);
+    const result = await this.firestore.collection('Users').doc(user.uid).set(user);
     const datosCoach: Coach = {
-      userId: result.id,
+      userId: user.uid,
       teamId: teamId,
       typeCoach: type
     }
@@ -33,9 +35,9 @@ export class FirestoreService {
 
   //Servicio de registro Jugadores
   async createPlayer(user:UserI, teamId: string, height, weight, position, secondPosition){
-    const result = await this.firestore.collection('Users').add(user);
+    const result = await this.firestore.collection('Users').doc(user.uid).set(user);
     const datosPlayer: Player = {
-      userId: result.id,
+      userId: user.uid,
       teamId: teamId,
       weight: weight,
       height: height,
@@ -47,10 +49,53 @@ export class FirestoreService {
     this.firestore.collection('Players').add(datosPlayer);
     return result;
   }
+  
+  //Sevicio obtención datos del usuario
+  getUserData(id: string) : Observable<UserI>{
+    try {
+      const rolDoc: AngularFirestoreDocument<UserI> = this.firestore.doc<UserI>(
+        `Users/${id}`
+      );
+      return rolDoc.snapshotChanges().pipe(
+        map((action) => {
+          if (action.payload.exists === false) {
+            return null;
+          } else {
+            const data = action.payload.data() as UserI;
+            data.uid = action.payload.id;
+            return data;
+          }
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   async createTeam(team: Team){
     const result = await this.firestore.collection('Team').add(team);
     return result;
+  }
+
+  getTeamData(id: string) : Observable<Team>{
+    try {
+      const rolDoc: AngularFirestoreDocument<Team> = this.firestore.doc<Team>(
+        `Team/${id}`
+      );
+      return rolDoc.snapshotChanges().pipe(
+        map((action) => {
+          if (action.payload.exists === false) {
+            return null;
+          } else {
+            const data = action.payload.data() as Team;
+            data.id = action.payload.id;
+            return data;
+          }
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   editTeam(teamId: string, datos: any){

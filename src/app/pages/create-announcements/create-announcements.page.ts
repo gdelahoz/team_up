@@ -12,4 +12,8 @@ export class CreateAnnouncementsPage implements OnInit {
   ngOnInit() {
   }
 
+  createAnnouncements(form){
+
+  }
+
 }

@@ -40,7 +40,7 @@ export class RegisterPage implements OnInit {
 
     if (result) {
       const id = result.user.uid;
-      
+
       const datosTeam: Team = {
         players: [],
         imgLogo: '',
@@ -51,9 +51,10 @@ export class RegisterPage implements OnInit {
         birthday: teamBirthday.value
       }
       const resultTeam = await this.firestore.createTeam(datosTeam);
-      
+
       const datosUser: UserI = {
         uid: id,
+        teamId: resultTeam.id,
         
         name: name.value,
         lastName: lastname.value,
