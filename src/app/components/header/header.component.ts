@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
-import { PopoverMenuComponent } from '../popover-menu/popover-menu.component';
+import { PopoverMenuComponent } from '../popovers/popover-menu/popover-menu.component';
 
 @Component({
   selector: 'team-toolbar',

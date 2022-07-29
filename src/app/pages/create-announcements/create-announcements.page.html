@@ -3,7 +3,7 @@
 </ion-header>
 
 <ion-content>
-  <form #form="ngForm" (ngSubmit)="createAnnouncements(form)">
+  <form>
     <ion-grid>
       <ion-row color="primary" class="mb-3 justify-content-center">
         <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
@@ -11,19 +11,15 @@
             <div>
               <ion-item class="mb-2 ion-no-padding">
                 <ion-label position="stacked">Titulo</ion-label>
-                <ion-input name="title" type="text" placeholder="Titulo del anuncio" ngModel required></ion-input>
+                <ion-input name="title" type="text" placeholder="Titulo del anuncio" #title></ion-input>
               </ion-item>
               <ion-item class="mb-2 ion-no-padding">
                 <ion-label position="stacked">Descripción</ion-label>
-                <ion-textarea name="description" rows="6"  placeholder="Escriba aquí..." ngModel required></ion-textarea>
-              </ion-item>
-              <ion-item class="mb-2 ion-no-padding">
-                <ion-label position="stacked">Link de video (Opcional)</ion-label>
-                <ion-input name="url" type="url" placeholder="youtube.com/videodemostración" ngModel required></ion-input>
+                <ion-textarea name="description" rows="6"  placeholder="Escriba aquí..." #description></ion-textarea>
               </ion-item>
               <div class="pt-3 d-flex justify-content-end gap-2">
-                <ion-button color="secondary" type="submit" [disabled]="form.invalid">
-                  Crear <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+                <ion-button color="secondary" (click)="createAnnouncement(title, description)" type="submit">
+                  Guardar <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
                 </ion-button>
               </div>
             </div>

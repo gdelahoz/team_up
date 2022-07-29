@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSegment, PopoverController } from '@ionic/angular';
-import { PopoverMenuComponent } from 'src/app/components/popover-menu/popover-menu.component';
+import { PopoverMenuComponent } from 'src/app/components/popovers/popover-menu/popover-menu.component';
 
 @Component({
   selector: 'app-team',

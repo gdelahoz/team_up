@@ -3,18 +3,30 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!--<ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Motobomba FC</ion-title>
-    </ion-toolbar>
-  </ion-header>-->
-  
-  <team-card-advertising title="Entrenamiento aplazado" subtitle="Nick Velasquez"></team-card-advertising>
-
   <team-card-infoteam 
     [image]="teamData.imgLogo" 
     [team]="teamData.name" 
     title="Nuestro equipo" 
     [info]="teamData.description">
   </team-card-infoteam>
+
+  <ion-label color="primary" class="fs-5 fw-bold mx-3">Anuncios recientes</ion-label>
+  <ng-container *ngIf="announcementsList.length !== 0; else elseBlock">
+    <ng-container *ngFor="let ann of announcementsList ; let i = index">
+      <team-card-advertising (click)="openPopoverAnn( $event , ann.id, i.toString() )" [title]="ann.title" [description]="ann.description" [subtitle]="ann.autor"></team-card-advertising>
+    </ng-container>
+  </ng-container>
+  <ng-template #elseBlock>
+    <div class="p-5 text-center" style="color: #666666">
+      <ion-icon  name="megaphone" style="font-size: 42px"></ion-icon>
+      <p class="m-0">No hay anuncios recientes</p>
+    </div>
+  </ng-template>
+
+  <!-- fab placed to the bottom end -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="goToCreateAnn()">
+      <ion-icon name="megaphone"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

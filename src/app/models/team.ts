@@ -1,11 +1,11 @@
+import { Announcement } from './announcement';
 import { Coach } from "./coach";
 import { Player } from "./player";
 
 export interface Team {
     id?: string;
     
-    players?: Player[];
-    coaches?: Coach[];
+    announcements?: Announcement;
 
     name: string;
     imgLogo?: string;

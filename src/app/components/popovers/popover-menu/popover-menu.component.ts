@@ -1,4 +1,4 @@
-import { InteractionService } from './../../services/interaction.service';
+import { InteractionService } from '../../../services/interaction.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';

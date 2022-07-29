@@ -1,4 +1,4 @@
-<ion-card class="mx-3 mt-3" (click)="editAdvertising()" button>
+<ion-card class="mx-3 mt-3" button>
   <ion-card-header>
     <div class="d-flex align-items-center">
       <ion-icon class="me-2" slot="start" name="megaphone"></ion-icon>
@@ -8,7 +8,6 @@
   </ion-card-header>
 
   <ion-card-content>
-    Keep close to Nature's heart... and break clear away, once in awhile,
-    and climb a mountain or spend a week in the woods. Wash your spirit clean.
+    {{ (description !== undefined) ? description : 'Ingresa aquí para publicar un anuncio.' }}
   </ion-card-content>
 </ion-card>

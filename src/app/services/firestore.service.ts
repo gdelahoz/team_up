@@ -22,31 +22,15 @@ export class FirestoreService {
   }
 
   //Servicio de registro Entrenadores
-  async createCoach(user: UserI, teamId: string, type: string){
+  async createCoach(user: UserI){
     const result = await this.firestore.collection('Users').doc(user.uid).set(user);
-    const datosCoach: Coach = {
-      userId: user.uid,
-      teamId: teamId,
-      typeCoach: type
-    }
-    this.firestore.collection('Coaches').add(datosCoach);
     return result;
   }
 
   //Servicio de registro Jugadores
-  async createPlayer(user:UserI, teamId: string, height, weight, position, secondPosition){
-    const result = await this.firestore.collection('Users').doc(user.uid).set(user);
-    const datosPlayer: Player = {
-      userId: user.uid,
-      teamId: teamId,
-      weight: weight,
-      height: height,
-      position: position,
-      secondPosition: secondPosition,
-      dorsal: '',
-      attendance: 0
-    }
-    this.firestore.collection('Players').add(datosPlayer);
+  async createPlayer(user:UserI, player:Player, uid: string){
+    const result = await this.firestore.collection('Users').doc(uid).set(user);
+    this.firestore.collection('Players').doc(uid).set(player);
     return result;
   }
   
@@ -63,6 +47,28 @@ export class FirestoreService {
           } else {
             const data = action.payload.data() as UserI;
             data.uid = action.payload.id;
+            return data;
+          }
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //Sevicio obtención datos del usuario
+  getPlayerData(id: string) : Observable<Player>{
+    try {
+      const rolDoc: AngularFirestoreDocument<Player> = this.firestore.doc<Player>(
+        `Players/${id}`
+      );
+      return rolDoc.snapshotChanges().pipe(
+        map((action) => {
+          if (action.payload.exists === false) {
+            return null;
+          } else {
+            const data = action.payload.data() as Player;
+            data.id = action.payload.id;
             return data;
           }
         })

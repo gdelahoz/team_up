@@ -1,14 +1,16 @@
 import { Coach } from "./coach";
 import { Comment } from "./comment";
+import { Timestamp } from 'firebase/firestore';
 
 export interface Announcement {
     id?: string;
+    teamId?: string;
+    coachId?: string;
+    
     title: string;
-    urlVideo: string;
     description: string;
-    coach: Coach;
-    comments: Comment[];
+    autor: string;
+    //comments?: Comment[];
 
-    createdAt: string;
-    modifiedAt: string;
+    createdAt?: Timestamp;
 }

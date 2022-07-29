@@ -9,44 +9,51 @@
 
 <ion-content>
   <team-header-profile 
-    name="Gabriel De La Hoz"
-    image="../../../assets/img/motobomba.jpeg"
-    attendance="80% de asistencia"
+    [name]="userData.name"
+    [image]="userData.imgProfile"
+    attendance="10 asistencias"
   ></team-header-profile>
 
   <team-card-info 
     title="Información personal"
     datatitle1="Nombre completo"
-    data1="Gabriel De La Hoz"
-    datatitle2="Identificación"
-    data2="1001821137"
+    [data1]="userData.name + ' ' + userData.lastName"
+    datatitle2="Ocupación"
+    [data2]="userData.rol"
     datatitle3="Télefono"
-    data3="+57 3201252211"
+    [data3]="'+57 ' + userData.tel"
     datatitle4="Correo"
-    data4="gabriel@jugador.com"
-    datatitle5="Edad"
-    data5="21 años"
+    [data4]="userData.email"
+    datatitle5="Fecha de nacimiento"
+    [data5]="userData.birthday"
     >
   </team-card-info>
 
-  <team-card-info 
+  <team-card-info *ngIf="playerData"
     title="Datos del jugador"
     datatitle1="Posición"
-    data1="Defensor"
+    [data1]="playerData.position"
     datatitle2="Posición segundaria"
-    data2="Lateral"
+    [data2]="playerData.secondPosition"
     datatitle3="Dorsal"
-    data3="12"
+    [data3]="playerData.dorsal"
     >
   </team-card-info>
 
-  <team-card-info
+  <team-card-info *ngIf="playerData"
     title="Información física"
     datatitle1="Altura"
-    data1="175 cm"
+    [data1]="playerData.height + 'cm'"
     datatitle2="Peso"
-    data2="85 kg"
+    [data2]="playerData.weight + 'kg'"
     >
   </team-card-info>
+
+  <!-- fab placed to the bottom end -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="updateProfile()">
+      <ion-icon name="create"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
   
 </ion-content>

@@ -1,3 +1,4 @@
+import { Player } from './../../models/player';
 import { Team } from './../../models/team';
 import { FirestoreService } from './../../services/firestore.service';
 import { InteractionService } from './../../services/interaction.service';
@@ -15,6 +16,7 @@ import { UserI } from 'src/app/models/user';
 export class LoginPage implements OnInit {
   user: UserI;
   team: Team;
+  player: Player;
 
   usuario = {
     email: null,
@@ -30,8 +32,6 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
   }
-
-
 
   //Función asincrona de login, recibe la promesa de firbase implementada en el servicio de Auth
   async login(form){
@@ -49,17 +49,31 @@ export class LoginPage implements OnInit {
           this.user = await res;
           console.log(this.user);
           localStorage.setItem('infoUser', JSON.stringify(this.user));
-          resolve("promise result");
+          resolve("Promise result");
         });
       });
 
       console.log(this.user.teamId);
       
-      this.firestoreService.getTeamData(this.user.teamId).subscribe(async res => {
-        this.team = await res;
-        console.log(this.team);
-        localStorage.setItem('infoTeam', JSON.stringify(this.team));
-      });
+      await new Promise((resolve) => {
+        this.firestoreService.getTeamData(this.user.teamId).subscribe(async res => {
+          this.team = await res;
+          console.log(this.team);
+          localStorage.setItem('infoTeam', JSON.stringify(this.team));
+          resolve("Promise result");
+        });
+      })
+      
+      if (this.user.rol == 'Jugador') {
+        await new Promise((resolve) => {
+          this.firestoreService.getPlayerData(this.user.uid).subscribe(async res => {
+            this.player = await res;
+            console.log(this.player);
+            localStorage.setItem('infoPlayer', JSON.stringify(this.player));
+            resolve("Promise result");
+          });
+        })
+      }
 
       this.interaction.closeLoading();
       this.interaction.presentToast('Usuario ingresado con exito.');

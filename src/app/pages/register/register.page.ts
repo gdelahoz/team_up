@@ -1,3 +1,4 @@
+import { Player } from './../../models/player';
 import { Team } from './../../models/team';
 import { FirestoreService } from './../../services/firestore.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -30,8 +31,8 @@ export class RegisterPage implements OnInit {
   ngOnInit() {
   }
 
-  //Registro de entrenador
-  async registerCoach(name, lastname, email, tel, birthday, password, teamName, campus, teamBirthday){
+  //Registro de entrenador y equipo
+  async registerCoachAndTeam(name, lastname, email, tel, birthday, password, teamName, campus, teamBirthday){
     await this.interaction.showLoading('Registrando...');
     const result = await this.auth.register(email.value, password.value).catch(error => {
       this.interaction.closeLoading();
@@ -42,10 +43,9 @@ export class RegisterPage implements OnInit {
       const id = result.user.uid;
 
       const datosTeam: Team = {
-        players: [],
-        imgLogo: '',
-        description: '',
         name: teamName.value,
+        description: '',
+        imgLogo: '',
         country: this.teamCountry,
         campus: campus.value,
         birthday: teamBirthday.value
@@ -64,9 +64,9 @@ export class RegisterPage implements OnInit {
         birthday: birthday.value,
         rol: this.role
       }
-      this.firestore.createCoach(datosUser, resultTeam.id, this.role);
+      this.firestore.createCoach(datosUser);
 
-      const datosCoach: UserI = {
+      /*const datosCoach: UserI = {
         name: name.value,
         lastName: lastname.value,
         email: email.value,
@@ -74,7 +74,8 @@ export class RegisterPage implements OnInit {
         birthday: birthday.value,
         rol: this.role
       }
-      this.firestore.editTeam(resultTeam.id, {coaches: [datosCoach]});
+      this.firestore.editTeam(resultTeam.id, {coaches: [datosCoach]});*/
+
       this.interaction.closeLoading();
       this.interaction.presentToast('Usuario registrado correctamente, inicia sesión para continuar.');
       this.router.navigate(['/login']);
@@ -95,7 +96,8 @@ export class RegisterPage implements OnInit {
 
       const datosUser: UserI = {
         uid: id,
-        
+        teamId: teamId.value,
+
         name: name.value,
         lastName: lastname.value,
         email: email.value,
@@ -104,9 +106,9 @@ export class RegisterPage implements OnInit {
         birthday: birthday.value,
         rol: this.role
       }
-      this.firestore.createCoach(datosUser, teamId.value, this.role);
+      this.firestore.createCoach(datosUser);
 
-      this.firestore.addCoachTeam(
+      /*this.firestore.addCoachTeam(
         name.value, 
         lastname.value, 
         email.value,
@@ -114,7 +116,8 @@ export class RegisterPage implements OnInit {
         birthday.value,
         this.role, 
         teamId.value
-      );
+      );*/
+
       this.interaction.closeLoading();
       this.interaction.presentToast('Usuario registrado correctamente, inicia sesión para continuar.');
       this.router.navigate(['/login']);
@@ -135,6 +138,7 @@ export class RegisterPage implements OnInit {
 
       const datosUser: UserI = {
         uid: id,
+        teamId: teamId.value,
         
         name: name.value,
         lastName: lastname.value,
@@ -144,10 +148,22 @@ export class RegisterPage implements OnInit {
         birthday: birthday.value,
         rol: this.role,
       }
-      
-      this.firestore.createPlayer(datosUser, teamId.value, height.value, weight.value, position.value, secondPosition.value);
 
-      this.firestore.addPlayerTeam(
+      const datosPlayer: Player = {
+        teamId: teamId.value,
+        userId: id,
+        
+        height: height.value,
+        weight: weight.value,
+        position: position.value,
+        secondPosition: secondPosition.value,
+        dorsal: '',
+        attendance: ''
+      }
+      
+      this.firestore.createPlayer(datosUser, datosPlayer, id);
+
+      /*this.firestore.addPlayerTeam(
         name.value, 
         lastname.value, 
         email.value, 
@@ -158,7 +174,8 @@ export class RegisterPage implements OnInit {
         position.value, 
         secondPosition.value, 
         teamId.value
-      );
+      );*/
+
       this.interaction.closeLoading();
       this.interaction.presentToast('Jugador registrado correctamente.');
       this.router.navigate(['/login']);

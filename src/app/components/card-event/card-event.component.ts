@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
-import { PopoverAssistComponent } from '../popover-assist/popover-assist.component';
+import { PopoverAssistComponent } from '../popovers/popover-assist/popover-assist.component';
 
 @Component({
   selector: 'team-card-event',

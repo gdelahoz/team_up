@@ -1,3 +1,4 @@
+import { PopoverAnnouncementComponent } from './popovers/popover-announcement/popover-announcement.component';
 import { CardInfoComponent } from './profile/card-info/card-info.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -6,8 +7,8 @@ import { CardAdvertisingComponent } from './card-advertising/card-advertising.co
 import { CardEventComponent } from './card-event/card-event.component';
 import { HeaderComponent } from './header/header.component';
 import { IonicModule } from '@ionic/angular';
-import { PopoverAssistComponent } from './popover-assist/popover-assist.component';
-import { PopoverMenuComponent } from './popover-menu/popover-menu.component';
+import { PopoverAssistComponent } from './popovers/popover-assist/popover-assist.component';
+import { PopoverMenuComponent } from './popovers/popover-menu/popover-menu.component';
 import { CardInfoteamComponent } from './card-infoteam/card-infoteam.component';
 import { HeaderProfileComponent } from './profile/header-profile/header-profile.component';
 import { DataComponent } from './profile/data/data.component';
@@ -21,6 +22,7 @@ import { DataComponent } from './profile/data/data.component';
     HeaderComponent,
     PopoverAssistComponent,
     PopoverMenuComponent,
+    PopoverAnnouncementComponent,
     HeaderProfileComponent,
     CardInfoComponent,
     DataComponent
@@ -37,6 +39,7 @@ import { DataComponent } from './profile/data/data.component';
     HeaderComponent,
     PopoverAssistComponent,
     PopoverMenuComponent,
+    PopoverAnnouncementComponent,
     HeaderProfileComponent,
     CardInfoComponent,
     DataComponent
