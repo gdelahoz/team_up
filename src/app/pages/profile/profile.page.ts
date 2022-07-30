@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Player } from 'src/app/models/player';
 import { UserI } from 'src/app/models/user';
@@ -11,12 +12,19 @@ export class ProfilePage implements OnInit {
   userData: UserI;
   playerData: Player;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.getUserData();
     if (this.userData.rol == 'Jugador') {
       this.getPlayerData();
+    }
+  }
+
+  async ionViewWillEnter() {
+    await this.getUserData();
+    if (this.userData.rol == 'Jugador') {
+      await this.getPlayerData();
     }
   }
 
@@ -28,8 +36,8 @@ export class ProfilePage implements OnInit {
     this.playerData = JSON.parse(localStorage.getItem('infoPlayer')) as Player;
   }
 
-  updateProfile(){
-    
+  goToUpdateProfile(){
+    this.router.navigate(['tabs/home/profile/profile-update'])
   }
 
 }

@@ -6,6 +6,10 @@ const routes: Routes = [
   {
     path: '',
     component: teamPage,
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('../profile/profile.module').then( m => m.ProfilePageModule)
   }
 ];
 

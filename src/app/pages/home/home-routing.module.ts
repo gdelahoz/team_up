@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: 'team-update',
     loadChildren: () => import('../team-update/team-update.module').then( m => m.TeamUpdatePageModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('../profile/profile.module').then( m => m.ProfilePageModule)
   }
 
 ];

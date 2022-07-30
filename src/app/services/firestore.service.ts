@@ -21,17 +21,24 @@ export class FirestoreService {
     return collection.doc(id).set(data);
   }
 
-  //Servicio de registro Entrenadores
+  // USUARIOS
   async createCoach(user: UserI){
     const result = await this.firestore.collection('Users').doc(user.uid).set(user);
     return result;
   }
 
-  //Servicio de registro Jugadores
   async createPlayer(user:UserI, player:Player, uid: string){
     const result = await this.firestore.collection('Users').doc(uid).set(user);
     this.firestore.collection('Players').doc(uid).set(player);
     return result;
+  }
+
+  editUser(userId: string, datos: any){
+    this.firestore.collection('Users').doc(userId).update( datos );
+  }
+
+  editPlayer(userId: string, datosPlayer: any){
+    this.firestore.collection('Players').doc(userId).update( datosPlayer );
   }
   
   //Sevicio obtención datos del usuario
@@ -78,6 +85,8 @@ export class FirestoreService {
     }
   }
 
+
+  // EQUIPOS
   async createTeam(team: Team){
     const result = await this.firestore.collection('Team').add(team);
     return result;

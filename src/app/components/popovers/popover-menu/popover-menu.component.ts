@@ -25,7 +25,7 @@ export class PopoverMenuComponent implements OnInit {
   }
 
   goToProfile(){
-    this.router.navigate(['/profile']);
+    this.router.navigate(['/tabs/home/profile']);
   }
 
 }

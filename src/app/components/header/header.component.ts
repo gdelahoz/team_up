@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {}
 
   async openPopoverMenu( evento ){
-    console.log('avatar menu');
+    //console.log('avatar menu');
 
     const popover = await this.popoverCtrl.create({
       component: PopoverMenuComponent,

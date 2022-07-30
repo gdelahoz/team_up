@@ -83,7 +83,7 @@ export class homePage implements OnInit{
         this.dataReturned = dataReturned.data;
         this.announcementsList.splice(this.dataReturned, 1);
         this.intService.presentToast('Anuncio eliminado.');
-        // console.log(this.dataReturned);
+        // console.log(this.dataReturned); imprime el dato recibido del componente
         // alert('Modal Sent Data :'+ dataReturned);
       }
     });
