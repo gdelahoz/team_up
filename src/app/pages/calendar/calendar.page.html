@@ -1,5 +1,5 @@
 <ion-header  class="ion-no-border">
-  <team-toolbar subtitle="Calendario de" title="Eventos" image="../../../assets/img/motobomba.jpeg"></team-toolbar>
+  <team-toolbar subtitle="Calendario de" title="Actividades" [image]="userData.imgProfile"></team-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding-top">
@@ -10,19 +10,25 @@
   </ion-header>
 
   <section class="d-flex justify-content-between align-items-center mx-3 mb-3">
-    <ion-label color="primary" class="fs-5 fw-bold">Eventos deportivos</ion-label>
+    <ion-label color="primary" class="fs-5 fw-bold">Actividades deportivas</ion-label>
     <ion-label class="fs-6"><a href="#">8 de Mayo</a></ion-label>
   </section>
 
-  <team-card-event image="../../../assets/img/soccer.jpeg" title="Entrenamiento" date="Miercoles 8 de mayo"
-    place="Cancha El pueblito" time="07:00 a.m. - 9:30 a.m." players="28 jugadores confirmados">
-  </team-card-event>
+  <ng-container *ngIf="eventsList.length !== 0; else elseBlock">
+    <ng-container *ngFor="let event of eventsList ; let i = index">
+      <team-card-event [image]="event.imgPlace" [title]="event.type" [date]="event.date"
+        [place]="event.place" [time]="event.startTime + ' - ' + event.endTime" players="0 jugadores confirmados">
+      </team-card-event>
+    </ng-container>
+  </ng-container>
+  <ng-template #elseBlock>
+    <div class="p-5 text-center" style="color: #666666">
+      <ion-icon class="mb-3"  name="calendar" style="font-size: 42px"></ion-icon>
+      <p class="m-0">No hay actividades recientes.</p>
+    </div>
+  </ng-template>
 
-  <team-card-event image="../../../assets/img/soccer.jpeg" title="Partido" date="Miercoles 8 de mayo"
-    place="Polideportivo Pibe Valderrama" time="07:00 p.m. - 9:30 p.m." players="22 jugadores confirmados">
-  </team-card-event>
-
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab *ngIf="userData.rol == 'Entrenador'" vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button color="tertiary" (click)="openCreateEvent()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>

@@ -9,8 +9,7 @@ import { map } from 'rxjs/internal/operators/map';
   providedIn: 'root'
 })
 export class AnnouncementService {
-  teamData: Team;
-
+  
   constructor( private firestore: AngularFirestore ) { }
 
   //Servicio de registro Jugadores

@@ -40,14 +40,9 @@ export class homePage implements OnInit{
   }
 
   async ionViewWillEnter() {
+    await this.getUserData();
     await this.getTeamData();
     await this.getAnnouncementData();
-  }
-
-  receiveMessage($event) {
-    console.log($event);
-    //this.announcementsList.splice(annIndex, 1);
-    
   }
 
   getUserData(){

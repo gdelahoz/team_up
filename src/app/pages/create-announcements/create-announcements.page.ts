@@ -16,14 +16,12 @@ import { Timestamp } from 'firebase/firestore';
 export class CreateAnnouncementsPage implements OnInit {
   userData: UserI;
   teamData: Team;
-  annData: Announcement;
   team: Team;
-  announcement: Announcement;
 
   constructor(
     private interaction: InteractionService,
     private annService: AnnouncementService,
-    private firestoreService: FirestoreService,
+    //private firestoreService: FirestoreService,
     private nav: NavController
   ) { }
 
@@ -72,12 +70,7 @@ export class CreateAnnouncementsPage implements OnInit {
 
     await new Promise((resolve) => {
       this.annService.getAnnouncementData(this.teamData.id);
-      resolve("Promesa resuelta"); /*.then(async res => {
-        this.announcement = await res;
-        //console.log(this.team);
-        localStorage.setItem('infoAnnouncement', JSON.stringify(this.announcement));
-        resolve("Promesa resuelta");
-      });*/
+      resolve("Promesa resuelta");
     });
     
     this.interaction.closeLoading();

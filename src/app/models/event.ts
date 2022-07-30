@@ -1,5 +1,8 @@
+import { Timestamp } from "firebase/firestore";
+
 export interface Event {
     id?: string;
+    teamId?: string;
     type: string;
     date: string;
     imgPlace: string;
@@ -7,9 +10,9 @@ export interface Event {
     info: string;
     startTime: string;
     endTime: string;
-    numAttendance: string;
-    numAbsence: string;
+    numAttendance?: string;
+    numAbsence?: string;
 
-    createdAt: string;
-    modifiedAt: string;
+    createdAt: Timestamp;
+    updatedAt: string;
 }
