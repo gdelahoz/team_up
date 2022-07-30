@@ -77,7 +77,11 @@ export class CreateEventPage implements OnInit {
     await this.interaction.showLoading('Publicando...');
 
     let img;
-    await this.enviar().then(res => { img = res })
+    if (this.file == null) {
+      img = '';
+    } else {
+      await this.enviar().then(res => { img = res });
+    }
     
     const datos: Event = {
       teamId: this.teamData.id,
