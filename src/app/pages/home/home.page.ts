@@ -34,9 +34,6 @@ export class homePage implements OnInit{
     this.getUserData();
     this.getTeamData();
     this.getAnnouncementData();
-    /*if (this.userData.rol == 'Jugador') {
-      this.getPlayerData();
-    }*/
   }
 
   async ionViewWillEnter() {
@@ -55,12 +52,7 @@ export class homePage implements OnInit{
 
   async getAnnouncementData(){
     this.announcementsList = await this.annService.getAnnouncementData(this.teamData.id);
-    //console.log(this.announcementsList);
   }
-
-  /*getPlayerData(){
-    this.playerData = JSON.parse(localStorage.getItem('infoPlayer')) as Player;
-  }*/
 
   goToCreateAnn(){
     this.router.navigate(['tabs/home/create-announcements']);
