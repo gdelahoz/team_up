@@ -59,10 +59,10 @@
                 </ion-item>
                 <ion-item class="mb-2 ion-no-padding">
                   <ion-label position="stacked">Dorsal favorito</ion-label>
-                  <ion-input *ngIf="playerData.dorsal;else inputDorsal" name="dorsal" type="number" [value]="playerData.weight" #dorsal></ion-input>
-                  <ng-template #inputDorsal>
+                  <ion-input name="dorsal" type="number" [value]="playerData.dorsal" #dorsal></ion-input>
+                  <!--<ng-template #inputDorsal>
                     <ion-input name="dorsal" type="number" placeholder="10" #dorsal></ion-input>
-                  </ng-template>
+                  </ng-template>-->
                 </ion-item>
                 <ion-list>
                   <ion-item class="ion-no-padding">
@@ -94,18 +94,20 @@
                     </ion-select>
                   </ion-item>
                 </ion-list>
+                <div class="pt-3 d-flex justify-content-end gap-2">
+                  <ion-button (click)="updatePlayer(name, lastname, tel, birthday, height, weight, dorsal, position, secondPosition)" color="secondary">
+                    Guardar <ion-icon slot="end" name="save"></ion-icon>
+                  </ion-button>
+                </div>
               </ng-container>
-              <div class="pt-3 d-flex justify-content-end gap-2">
-                <ion-button (click)="updateUser(name, lastname, tel, birthday)" *ngIf="userData.rol != 'Jugador'" color="secondary">
-                  Guardar <ion-icon slot="end" name="save"></ion-icon>
-                </ion-button>
-                <ion-button *ngIf="userData.rol == 'Jugador'" color="secondary">
+              <div *ngIf="userData.rol != 'Jugador'" class="pt-3 d-flex justify-content-end gap-2">
+                <ion-button (click)="updateUser(name, lastname, tel, birthday)" color="secondary">
                   Guardar <ion-icon slot="end" name="save"></ion-icon>
                 </ion-button>
               </div>
             </div>
           </ion-card>
-          <ion-card class="p-4">
+          <!--<ion-card class="p-4">
             <div>
               <div class="text-dark mb-2">
                 <ion-label class="fs-4 fw-bold">Cambiar contraseña</ion-label><br>
@@ -120,7 +122,7 @@
                 </ion-button>
               </div>
             </div>
-          </ion-card>
+          </ion-card>-->
         </ion-col>
       </ion-row>
     </ion-grid>

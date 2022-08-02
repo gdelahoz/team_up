@@ -68,8 +68,46 @@ export class ProfileUpdatePage implements OnInit {
     this.nav.navigateBack(['tabs/home/profile']);
   }
 
-  updatePlayer(){
+  async updatePlayer(name, lastname, tel, birthday, height, weight, dorsal, position, secondPosition){
+    await this.interaction.showLoading('Actualizando...');
+    const datosUser: UserI = {
+      name: name.value,
+      lastName: lastname.value,
+      tel: tel.value,
+      birthday: birthday.value,
+      email: this.userData.email,
+      rol: this.userData.rol
+    }
+    this.firestoreService.editUser(this.userData.uid, datosUser);
+
+    const datosPlayer: Player = {
+      height: height.value,
+      weight: weight.value,
+      dorsal: dorsal.value,
+      position: position.value,
+      secondPosition: secondPosition.value
+    }
+    this.firestoreService.editPlayer(this.userData.uid, datosPlayer);
+
+    await new Promise((resolve) => {
+      this.firestoreService.getUserData(this.userData.uid).subscribe(async res => {
+        this.user = await res;
+        localStorage.setItem('infoUser', JSON.stringify(this.user));
+        resolve("Promesa resuelta");
+      });
+    });
+
+    await new Promise((resolve) => {
+      this.firestoreService.getPlayerData(this.userData.uid).subscribe(async res => {
+        this.player = await res;
+        localStorage.setItem('infoPlayer', JSON.stringify(this.player));
+        resolve("Promesa resuelta");
+      });
+    });
     
+    this.interaction.closeLoading();
+    this.interaction.presentToast('Datos actualizados.');
+    this.nav.navigateBack(['tabs/home/profile']);
   }
 
   updatePassword(){

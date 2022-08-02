@@ -33,8 +33,8 @@ export class FirestoreService {
     return result;
   }
 
-  editUser(userId: string, datos: any){
-    this.firestore.collection('Users').doc(userId).update( datos );
+  editUser(userId: string, datosUser: any){
+    this.firestore.collection('Users').doc(userId).update( datosUser );
   }
 
   editPlayer(userId: string, datosPlayer: any){

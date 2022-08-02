@@ -34,6 +34,7 @@ export class ProfilePage implements OnInit {
 
   getPlayerData(){
     this.playerData = JSON.parse(localStorage.getItem('infoPlayer')) as Player;
+    console.log(this.playerData);
   }
 
   goToUpdateProfile(){
