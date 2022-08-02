@@ -2,7 +2,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.teamup.teamupsoccer',
-  appName: 'Team Up Soccer',
+  appName: 'Team Up',
   webDir: 'www',
   bundledWebRuntime: false
 };

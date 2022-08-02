@@ -1,6 +1,6 @@
 {
 	"appId": "com.teamup.teamupsoccer",
-	"appName": "Team Up Soccer",
+	"appName": "Team Up",
 	"webDir": "www",
 	"bundledWebRuntime": false
 }

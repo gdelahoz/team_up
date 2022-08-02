@@ -5,7 +5,7 @@ export interface Event {
     teamId?: string;
     type: string;
     date: string;
-    imgPlace: string;
+    imgPlace?: string;
     place: string;
     info?: string;
     startTime: string;
@@ -13,6 +13,6 @@ export interface Event {
     attendance?: [];
     absence?: [];
 
-    createdAt: Timestamp;
-    updatedAt: string;
+    createdAt?: Timestamp;
+    updatedAt?: Timestamp;
 }

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Team Up Soccer</string>
-    <string name="title_activity_main">Team Up Soccer</string>
+    <string name="app_name">Team Up</string>
+    <string name="title_activity_main">Team Up</string>
     <string name="package_name">com.teamup.teamupsoccer</string>
     <string name="custom_url_scheme">com.teamup.teamupsoccer</string>
 </resources>

@@ -1,3 +1,4 @@
+import { ComponentsModule } from './../../components/components.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,7 +14,8 @@ import { EventUpdatePage } from './event-update.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    EventUpdatePageRoutingModule
+    EventUpdatePageRoutingModule,
+    ComponentsModule
   ],
   declarations: [EventUpdatePage]
 })

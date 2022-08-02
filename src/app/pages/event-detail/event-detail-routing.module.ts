@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: EventDetailPage
-  }
+  },
+  {
+    path: 'event-update',
+    loadChildren: () => import('../event-update/event-update.module').then( m => m.EventUpdatePageModule)
+  },
 ];
 
 @NgModule({

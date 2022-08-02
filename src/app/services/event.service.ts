@@ -12,21 +12,21 @@ export class EventService {
 
   constructor( private firestore: AngularFirestore ) { }
 
-  //Servicio de registro Jugadores
+  //Servicio de registro eventos
   async createEvents(event:Event){
     const result = await this.firestore.collection('Event').doc(event.id).set(event);
     return result;
   }
 
-  updateEvent(datos: Event){
-    this.firestore.collection('Event').doc(datos.id).set(datos);
+  updateEvent(eventId, datos: any){
+    this.firestore.collection('Event').doc(eventId).update(datos);
   }
 
   deleteEvent(id){
     this.firestore.collection('Event').doc(id).delete();
   }
 
-  //Sevicio obtención datos del usuario
+  // Sevicio obtención datos del evento
   getEventData(id: string) : Observable<Event>{
     try {
       const rolDoc: AngularFirestoreDocument<Event> = this.firestore.doc<Event>(
@@ -66,6 +66,7 @@ export class EventService {
     return datos;
   }
 
+  // Asistencias
   async addAttendance(eventId, userId){
     const result = await this.firestore.collection('Event').doc(eventId).ref.get().then((snapshot)=>{
       var data = snapshot.data()
@@ -94,6 +95,7 @@ export class EventService {
     return attendance;
   }
 
+  // Ausencias
   async addAbsence(eventId, userId, info){
     const result = await this.firestore.collection('Event').doc(eventId).ref.get().then((snapshot)=>{
       var data = snapshot.data()

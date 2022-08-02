@@ -1,6 +1,6 @@
 import { Event } from './../../models/event';
 import { Component, OnInit } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
+import { PopoverController, NavController } from '@ionic/angular';
 import { Team } from 'src/app/models/team';
 import { UserI } from 'src/app/models/user';
 import { EventService } from 'src/app/services/event.service';
@@ -26,7 +26,8 @@ export class EventDetailPage implements OnInit {
     private intService: InteractionService, 
     private popoverCtrl: PopoverController,
     private eventService: EventService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private nav: NavController
   ) { }
 
   async ngOnInit() {
@@ -39,6 +40,10 @@ export class EventDetailPage implements OnInit {
     await this.getAbsence();
   }
 
+  async ionViewWillEnter(){
+    await this.getEventData(this.id);
+  }
+
   getUserData(){
     this.userData = JSON.parse(localStorage.getItem('infoUser')) as UserI;
   }
@@ -48,7 +53,6 @@ export class EventDetailPage implements OnInit {
   }
 
   async getEventData(id){
-    
     this.eventData = await new Promise((resolve) => {
       this.eventService.getEventData(id).subscribe(res => {
         resolve(res);
@@ -88,6 +92,10 @@ export class EventDetailPage implements OnInit {
 
   timeFormat(data){
     return moment(data, "hh:mm").format('h:mm a')
+  }
+
+  goToUpdateEvent(){
+    this.nav.navigateForward(['tabs/calendar/event-detail/' + this.id +'/event-update']);
   }
 
 }

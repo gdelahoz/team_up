@@ -1,44 +1,46 @@
+import { Event } from './../../models/event';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { NavController } from '@ionic/angular';
 import { Timestamp } from 'firebase/firestore';
 import { finalize } from 'rxjs/operators';
-import { Team } from 'src/app/models/team';
-import { UserI } from 'src/app/models/user';
 import { EventService } from 'src/app/services/event.service';
 import { InteractionService } from 'src/app/services/interaction.service';
-import { Event } from './../../models/event';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-create-event',
-  templateUrl: './create-event.page.html',
-  styleUrls: ['./create-event.page.scss'],
+  selector: 'app-event-update',
+  templateUrl: './event-update.page.html',
+  styleUrls: ['./event-update.page.scss'],
 })
-export class CreateEventPage implements OnInit {
-  userData: UserI;
-  teamData: Team;
-  team: Team;
+export class EventUpdatePage implements OnInit {
+  eventData: Event;
   file: any;
   imgState: boolean = false;
+  id: any;
 
   constructor(
     private nav: NavController,
     private interaction: InteractionService, 
     private angularStorage: AngularFireStorage,
-    private eventService: EventService
+    private eventService: EventService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.getUserData();
-    this.getTeamData();
+    this.id = this.route.snapshot.paramMap.get('id');
+    console.log(this.id);
+    
+    this.getEventData(this.id)
   }
 
-  getUserData(){
-    this.userData = JSON.parse(localStorage.getItem('infoUser')) as UserI;
-  }
-
-  getTeamData(){
-    this.teamData = JSON.parse(localStorage.getItem('infoTeam')) as Team;
+  async getEventData(id){
+    this.eventData = await new Promise((resolve) => {
+      this.eventService.getEventData(id).subscribe(res => {
+        resolve(res);
+      });
+    });
+    //console.log('EVENT DATA',this.eventData);
   }
 
   async enviar() {
@@ -73,47 +75,45 @@ export class CreateEventPage implements OnInit {
     return ulr;
   }
 
-  async createEvent(type, date, place, info, startTime, endTime){
-    await this.interaction.showLoading('Publicando...');
-
-    let img;
-    if (this.file == null) {
-      img = '';
-    } else {
-      await this.enviar().then(res => { img = res });
-    }
-    
-    const datos: Event = {
-      teamId: this.teamData.id,
-
+  async updateEvent(type, date, place, info, startTime, endTime){
+    await this.interaction.showLoading('Actualizando...');
+    const datosEvent: Event = {
       type: type.value,
       date: date.value,
-      imgPlace: img,
       place: place.value,
       info: info.value,
       startTime: startTime.value,
       endTime: endTime.value,
-      attendance: [],
-      absence: [],
-
-      createdAt: Timestamp.now(),
       updatedAt: Timestamp.now()
     }
-
-    this.eventService.createEvents(datos).catch(error => {
-      this.interaction.closeLoading();
-      this.interaction.presentToast('Ocurrió un error al crear la actividad.');
-      console.log('Error anuncio ->', error);
-    })
+    this.eventService.updateEvent(this.id, datosEvent);
 
     await new Promise((resolve) => {
-      this.eventService.getEvents(this.teamData.id);
+      this.eventService.getEventData(this.id);
       resolve("Promesa resuelta");
     });
     
     this.interaction.closeLoading();
-    this.interaction.presentToast('Actividad creada correctamente.');
-    this.nav.navigateBack(['/tabs/calendar']);
+    this.interaction.presentToast('Actividad actualizada.');
+    this.nav.navigateBack(['tabs/calendar/event-detail/' + this.id]);
+  }
+
+  async updateImgEvent(){
+    await this.interaction.showLoading('Actualizando imagen...');
+    let img;
+    await this.enviar().then(res => { img = res })
+    console.log('RUTA IMAGEN ->>', img);
+    
+    this.eventService.updateEvent(this.id, {imgPlace: img});
+
+    await new Promise((resolve) => {
+      this.eventService.getEventData(this.id);
+      resolve("Promesa resuelta");
+    });
+    
+    this.interaction.closeLoading();
+    this.interaction.presentToast('Imagen actualizada.');
+    this.nav.navigateBack(['tabs/calendar/event-detail/' + this.id]);
   }
 
   uploadImg($event: any) {
@@ -124,5 +124,4 @@ export class CreateEventPage implements OnInit {
   onSelectImgUpdate(){
     this.imgState = true;
   }
-
 }
