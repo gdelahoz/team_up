@@ -42,23 +42,23 @@ export class LoginPage implements OnInit {
     });
 
     if (res) {
-      console.log('res -> ', res);
+      //console.log('res -> ', res);
 
       await new Promise((resolve) => {
         this.firestoreService.getUserData(res.user.uid).subscribe(async res => {
           this.user = await res;
-          console.log(this.user);
+          //console.log(this.user);
           localStorage.setItem('infoUser', JSON.stringify(this.user));
           resolve("Promise result");
         });
       });
 
-      console.log(this.user.teamId);
+      //console.log(this.user.teamId);
       
       await new Promise((resolve) => {
         this.firestoreService.getTeamData(this.user.teamId).subscribe(async res => {
           this.team = await res;
-          console.log(this.team);
+          //console.log(this.team);
           localStorage.setItem('infoTeam', JSON.stringify(this.team));
           resolve("Promise result");
         });
@@ -68,7 +68,7 @@ export class LoginPage implements OnInit {
         await new Promise((resolve) => {
           this.firestoreService.getPlayerData(this.user.uid).subscribe(async res => {
             this.player = await res;
-            console.log(this.player);
+            //console.log(this.player);
             localStorage.setItem('infoPlayer', JSON.stringify(this.player));
             resolve("Promise result");
           });

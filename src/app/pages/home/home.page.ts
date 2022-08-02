@@ -30,7 +30,7 @@ export class homePage implements OnInit{
     private intService: InteractionService 
   ) {}
 
-  ngOnInit(){
+  async ngOnInit(){
     this.getUserData();
     this.getTeamData();
     this.getAnnouncementData();
@@ -75,9 +75,13 @@ export class homePage implements OnInit{
 
     popover.onDidDismiss().then((dataReturned) => {
       if (dataReturned !== null) {
+        
         this.dataReturned = dataReturned.data;
-        this.announcementsList.splice(this.dataReturned, 1);
-        this.intService.presentToast('Anuncio eliminado.');
+
+        if (this.dataReturned) {
+          this.announcementsList.splice(this.dataReturned, 1);
+          this.intService.presentToast('Anuncio eliminado.');
+        }
         // console.log(this.dataReturned); imprime el dato recibido del componente
         // alert('Modal Sent Data :'+ dataReturned);
       }

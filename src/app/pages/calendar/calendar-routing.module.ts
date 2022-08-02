@@ -12,9 +12,9 @@ const routes: Routes = [
     loadChildren: () => import('../create-event/create-event.module').then( m => m.CreateEventPageModule)
   },
   {
-    path: 'profile',
-    loadChildren: () => import('../profile/profile.module').then( m => m.ProfilePageModule)
-  }
+    path: 'event-detail/:id',
+    loadChildren: () => import('../event-detail/event-detail.module').then( m => m.EventDetailPageModule)
+  },
 ];
 
 @NgModule({

@@ -21,7 +21,11 @@ const routes: Routes = [
   {
     path: 'password-reset',
     loadChildren: () => import('./pages/password-reset/password-reset.module').then( m => m.PasswordResetPageModule)
-  }/*,
+  },/  {
+    path: 'event-update',
+    loadChildren: () => import('./event-update/event-update.module').then( m => m.EventUpdatePageModule)
+  },
+*,
   {
     path: 'profile',
     loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)

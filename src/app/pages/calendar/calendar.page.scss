@@ -1,3 +1,14 @@
 ion-content {
     --background: #F3F3F3;
 }
+
+.filter-date {
+    background: transparent;
+    border: none;
+    font-weight: bold;
+    color: #152d93;
+    font-size: 0.9rem;
+    padding: 0;
+    flex-direction: row-reverse;
+    width: 105px;
+}

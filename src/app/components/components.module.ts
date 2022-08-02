@@ -1,3 +1,4 @@
+import { ModalAbsenceComponent } from './modals/modal-absence/modal-absence.component';
 import { PopoverAnnouncementComponent } from './popovers/popover-announcement/popover-announcement.component';
 import { CardInfoComponent } from './profile/card-info/card-info.component';
 import { NgModule } from '@angular/core';
@@ -23,6 +24,7 @@ import { DataComponent } from './profile/data/data.component';
     PopoverAssistComponent,
     PopoverMenuComponent,
     PopoverAnnouncementComponent,
+    ModalAbsenceComponent,
     HeaderProfileComponent,
     CardInfoComponent,
     DataComponent
@@ -40,6 +42,7 @@ import { DataComponent } from './profile/data/data.component';
     PopoverAssistComponent,
     PopoverMenuComponent,
     PopoverAnnouncementComponent,
+    ModalAbsenceComponent,
     HeaderProfileComponent,
     CardInfoComponent,
     DataComponent

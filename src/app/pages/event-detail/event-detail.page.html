@@ -1,0 +1,85 @@
+<ion-header  class="ion-no-border">
+  <team-toolbar subtitle="Detalle" title="Actividades" [hideProfilePhoto]="true"></team-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-container *ngIf="eventData">
+    <div class="header-place">
+      <img class="h-100 w-100 header-img" [src]="(eventData.imgPlace == '') ? '../../../assets/img/no-image.png' : eventData.imgPlace" alt="Imagen del lugar">
+      <div class="subheader text-white">
+        <ion-label class="fs-4 fw-bold">{{ eventData.type }}</ion-label>
+        <div class="d-flex align-items-center">
+          <ion-icon class="me-2 fs-6" slot="start" name="map"></ion-icon>
+          <ion-label>{{ eventData.place }}</ion-label>
+        </div>
+      </div>
+    </div>
+    <ion-card class="m-3 p-3">
+      <ion-label class="fw-bold fs-6" color="primary">Información</ion-label>
+      <div class="d-flex align-items-center mt-2">
+        <ion-label>{{ (!eventData.info) ? 'No hay información disponible para este evento' : eventData.info}}</ion-label>
+      </div>
+    </ion-card> 
+    <ion-card class="m-3 p-3">
+      <ion-label class="fw-bold fs-6" color="primary">Fecha y hora</ion-label>
+      <div class="d-flex align-items-center mt-2">
+        <ion-icon color="primary" class="me-2 fs-5" slot="start" name="calendar"></ion-icon>
+        <ion-label>{{ dateFormat(eventData.date) }}</ion-label>
+      </div>
+      <div class="d-flex align-items-center mt-2">
+        <ion-icon color="primary" class="me-2 fs-5" slot="start" name="time"></ion-icon>
+        <ion-label>{{'Desde las ' + timeFormat(eventData.startTime) + ' a ' + timeFormat(eventData.endTime)}}</ion-label>
+      </div>
+    </ion-card>
+    <ion-card class="m-3 p-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <ion-label class="fw-bold fs-6" color="primary">Asistencias</ion-label>
+        <div class="d-flex align-items-center">
+          <ion-icon color="primary" class="me-2 fs-5" slot="start" name="people"></ion-icon>
+          <ion-label color="primary">{{eventData.attendance.length}}</ion-label>
+        </div>
+      </div>
+      <ion-list class="p-0" *ngIf="attList">
+        <ion-item class="ion-no-padding" lines="none" *ngFor="let att of attList">
+          <ion-label>
+            {{ att.name + ' ' + att.lastName }}
+            <p class="mb-0">{{ att.rol }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+    <ion-card class="m-3 p-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <ion-label class="fw-bold fs-6" color="primary">Inasistencias</ion-label>
+        <div class="d-flex align-items-center">
+          <ion-icon color="primary" class="me-2 fs-5" slot="start" name="people"></ion-icon>
+          <ion-label color="primary">{{eventData.absence.length}}</ion-label>
+        </div>
+      </div>
+      <ion-list class="p-0" *ngIf="absList">
+        <ion-item class="ion-no-padding" lines="none" *ngFor="let abs of absList; let i = index">
+          <ion-label>
+            {{ abs.name + ' ' + abs.lastName }}
+            <p class="mb-0">{{ abs.rol }}</p>
+          </ion-label>
+          <ion-icon  *ngIf="userData.rol != 'Jugador'" [id]="'info-modal-' + i" slot="end" name="information-circle"></ion-icon>
+          <ion-modal
+            [trigger]="'info-modal-' + i"
+            [initialBreakpoint]="0.25"
+            [breakpoints]="[0, 0.25, 0.5]"
+            handleBehavior="cycle"
+          >
+            <ng-template>
+              <ion-content class="ion-padding">
+                <div class="ion-margin-top">
+                  <p class="fs-4 fw-bold">Información de inasistencia</p>
+                  <ion-label>{{ eventData.absence[i]['info'] }}</ion-label>
+                </div>
+              </ion-content>
+            </ng-template>
+          </ion-modal>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+  </ng-container>
+</ion-content>

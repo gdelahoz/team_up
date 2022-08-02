@@ -24,7 +24,7 @@
   </ng-template>
 
   <!-- fab placed to the bottom end -->
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab *ngIf="userData.rol != 'Jugador'" vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button color="tertiary" (click)="goToCreateAnn()">
       <ion-icon name="megaphone"></ion-icon>
     </ion-fab-button>

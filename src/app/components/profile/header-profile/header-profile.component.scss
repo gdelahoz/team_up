@@ -1,10 +1,10 @@
 .profile-container{
-    height: 120px;
+    height: min-content;
     background-color: #152D93;
+    border-radius: 0 0 50% 50%;
 }
 
 .profile-img{
-    border: 3px solid #fff;
     border-radius: 50%;
     object-fit: cover;
     object-position: center;

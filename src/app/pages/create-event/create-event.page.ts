@@ -93,6 +93,8 @@ export class CreateEventPage implements OnInit {
       info: info.value,
       startTime: startTime.value,
       endTime: endTime.value,
+      attendance: [],
+      absence: [],
 
       createdAt: Timestamp.now(),
       updatedAt: ''
@@ -105,7 +107,7 @@ export class CreateEventPage implements OnInit {
     })
 
     await new Promise((resolve) => {
-      this.eventService.getEventData(this.teamData.id);
+      this.eventService.getEvents(this.teamData.id);
       resolve("Promesa resuelta");
     });
     

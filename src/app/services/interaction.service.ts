@@ -17,7 +17,7 @@ export class InteractionService {
   async presentToast(mensaje: string) {
     const toast = await this.toastController.create({
       message: mensaje,
-      duration: 4000
+      duration: 3000
     });
     toast.present();
   }

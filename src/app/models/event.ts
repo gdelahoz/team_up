@@ -7,11 +7,11 @@ export interface Event {
     date: string;
     imgPlace: string;
     place: string;
-    info: string;
+    info?: string;
     startTime: string;
     endTime: string;
-    numAttendance?: string;
-    numAbsence?: string;
+    attendance?: [];
+    absence?: [];
 
     createdAt: Timestamp;
     updatedAt: string;

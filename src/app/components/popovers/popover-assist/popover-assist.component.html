@@ -1,13 +1,15 @@
 <ion-list>
-  <ion-item (click)="assist()" size="small" button>
-    <ion-icon slot="start" name="checkmark-circle"></ion-icon>
-    <ion-label>Asistiré</ion-label>
-  </ion-item>
-  <ion-item (click)="openModalNoAssist()" size="small" button>
-    <ion-icon slot="start" name="close-circle"></ion-icon>
-    <ion-label>No asistiré</ion-label>
-  </ion-item>
-  <ion-item (click)="openDetailEvent()" size="small" lines="none" button>
+  <ng-container *ngIf="!(this.attArray.includes(userId) || this.absArray.includes(userId))">
+    <ion-item (click)="assist()" size="small" button>
+      <ion-icon slot="start" name="checkmark-circle"></ion-icon>
+      <ion-label>Asistiré</ion-label>
+    </ion-item>
+    <ion-item (click)="openModalNoAssist()" size="small" button>
+      <ion-icon slot="start" name="close-circle"></ion-icon>
+      <ion-label>No asistiré</ion-label>
+    </ion-item>
+  </ng-container>
+  <ion-item (click)="goToDetailEvent()" size="small" lines="none" button>
     <ion-icon slot="start" name="information-circle"></ion-icon>
     <ion-label>Ver detalle</ion-label>
   </ion-item>

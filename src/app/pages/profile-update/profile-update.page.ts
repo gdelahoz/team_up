@@ -127,7 +127,7 @@ export class ProfileUpdatePage implements OnInit {
     
     this.interaction.closeLoading();
     this.interaction.presentToast('Imagen actualizada.');
-    this.nav.navigateBack(['/profile']);
+    this.nav.navigateBack(['/tabs/home/profile']);
   }
 
   uploadImg($event: any) {

@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="cancel()">Cancelar</ion-button>
+    </ion-buttons>
+    <ion-title>Inasistencia</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirm(info)">Enviar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-item class="ion-no-padding mb-2">
+    <ion-label position="stacked">Informacion de inasistencia</ion-label>
+    <ion-textarea name="info" rows="6"  placeholder="Escriba aquí..." #info></ion-textarea>
+  </ion-item>
+  <ion-label>Las inasistencias no se podrán deshacer, si aún no estas seguro no la envie.</ion-label>
+</ion-content>

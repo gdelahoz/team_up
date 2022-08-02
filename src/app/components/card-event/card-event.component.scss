@@ -8,19 +8,16 @@ ion-card {
     border-radius: 0.3rem;
 }
 
-.icon-options{
-    position: absolute;
-    right: 8px;
-    top: 8px;
-    z-index: 999;
-}
-
 .fs-small{
-    font-size: 0.8rem;
+    font-size: 0.82rem;
 }
 
 .nowrap{
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+}
+
+ion-icon {
+    color: #152d93;
 }
