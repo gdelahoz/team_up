@@ -14,9 +14,15 @@ export class teamPage implements OnInit{
   userData: UserI;
   teamData: Team;
   default = "players";
+  // Entrenadores
   coachList = [];
   assistCoachList = [];
-  playerList = [];
+
+  // Jugadores
+  arqueros = [];
+  defensas = [];
+  mediocampistas = [];
+  delanteros = [];
 
   @ViewChild(IonSegment) segment: IonSegment;
 
@@ -31,7 +37,10 @@ export class teamPage implements OnInit{
     this.getTeamData();
     this.getCoachTeam();
     this.getAssistCoachTeam();
-    this.getPlayerTeam();
+    this.getGoalkeeperTeam();
+    this.getBackTeam();
+    this.getMidfielderTeam();
+    this.getForwardTeam();
   }
 
   async ionViewWillEnter(){
@@ -40,7 +49,10 @@ export class teamPage implements OnInit{
     await this.getTeamData();
     await this.getCoachTeam();
     await this.getAssistCoachTeam();
-    await this.getPlayerTeam();
+    await this.getGoalkeeperTeam();
+    await this.getBackTeam();
+    await this.getMidfielderTeam();
+    await this.getForwardTeam();
   }
 
   segmentChanged( event ){
@@ -69,15 +81,38 @@ export class teamPage implements OnInit{
     }
   }
 
-  async getPlayerTeam(){
+  async getGoalkeeperTeam(){
+    let goalkeeperArray = ["Portero"]
     if (this.userData) {
-      this.playerList = await this.teamService.getPlayerTeam(this.userData.teamId, "Jugador", "Extremo derecho");
-      console.log('EXTREMOS: ' + this.playerList);
+      this.arqueros = await this.teamService.getPlayerTeam(this.userData.teamId, "Jugador", goalkeeperArray);
     }
   }
 
-  deletePlayerModal(){}
+  async getBackTeam(){
+    let backArray = ["Defensor central", "Lateral derecho", "Lateral izquierdo"]
+    if (this.userData) {
+      this.defensas = await this.teamService.getPlayerTeam(this.userData.teamId, "Jugador", backArray);
+    }
+  }
 
-  editPlayer(){}
+  async getMidfielderTeam(){
+    let midfielderArray = ["Mediocampista central", "Mediocampista derecho", "Mediocampista izquierdo"]
+    if (this.userData) {
+      this.mediocampistas = await this.teamService.getPlayerTeam(this.userData.teamId, "Jugador", midfielderArray);
+      console.log('mediocampistas ',this.mediocampistas);
+      
+    }
+  }
+
+  async getForwardTeam(){
+    let forwardArray = ["Delantero centro", "Extremo derecho", "Extremo izquierdo"]
+    if (this.userData) {
+      this.delanteros = await this.teamService.getPlayerTeam(this.userData.teamId, "Jugador", forwardArray);
+    }
+  }
+
+  /*deletePlayerModal(){}
+
+  editPlayer(){}*/
 
 }

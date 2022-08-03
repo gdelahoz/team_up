@@ -16,102 +16,100 @@
 <ion-content [fullscreen]="true">
   <div [ngSwitch]="default">
     <ion-list *ngSwitchCase="'players'" >
-      <ion-item-group *ngIf="playerList">
-        <ion-item *ngFor="let player of playerList" lines="none" lines="none">
-          <ion-avatar slot="start">
-            <img [src]="(player.imgProfile == '') ? '../../../assets/img/imgProfile.png' : player.imgProfile" />
-          </ion-avatar>
-          <ion-label>
-            {{ player.name + ' ' + player.lastName}}
-            <p class="mb-0">{{ player.tel }}</p>
-          </ion-label>
-        </ion-item>
-      </ion-item-group>
-      <!--<ion-item-group>
+      <ion-item-group>
         <ion-item-divider>
           <ion-label class="fw-bold">Arqueros</ion-label>
         </ion-item-divider>
-  
-        <ion-item-sliding>
-          <ion-item lines="none">
-            <ion-avatar slot="start">
-              <img src="../../../assets/img/motobomba.jpeg" />
-            </ion-avatar>
-            <ion-label>
-              ©️ Cristian Cantillo
-              <p class="mb-0">Colombia</p>
-            </ion-label>
-          </ion-item>
-          <ion-item-options side="start">
-            <ion-item-option (click)="editPlayer()" color="primary">Editar</ion-item-option>
-          </ion-item-options>
-  
-          <ion-item-options side="end">
-            <ion-item-option (click)="deletePlayerModal()" color="danger">Eliminar</ion-item-option>
-          </ion-item-options>
-        </ion-item-sliding>
-  
+        <ng-container *ngIf="arqueros.length != 0; else sinArq">
+          <ion-item-sliding *ngFor="let arq of arqueros">
+            <ion-item lines="none">
+              <ion-avatar slot="start">
+                <img [src]="(arq.imgProfile == '') ? '../../../assets/img/imgProfile.png' : arq.imgProfile" />
+              </ion-avatar>
+              <ion-label>
+                {{ arq.name + ' ' + arq.lastName}}
+                <p class="mb-0">{{ arq.position }}</p>
+              </ion-label>
+            </ion-item>
+            <!--<ion-item-options side="end">
+              <ion-item-option (click)="deletePlayerModal()" color="danger">Eliminar</ion-item-option>
+            </ion-item-options>-->
+          </ion-item-sliding>
+        </ng-container>
+        <ng-template #sinArq>
+          <div class="p-4 text-center">
+            <p class="p-0">Aún no hay defensas en el equipo.</p>
+          </div>
+        </ng-template>
+        
         <ion-item-divider>
           <ion-label class="fw-bold">Defensores</ion-label>
         </ion-item-divider>
-  
-        <ion-item-sliding>
-          <ion-item lines="none">
-            <ion-avatar slot="start">
-              <img src="../../../assets/img/motobomba.jpeg" />
-            </ion-avatar>
-            <ion-label>
-              Gabriel De La Hoz
-              <p class="mb-0">Colombia</p>
-            </ion-label>
-          </ion-item>
-        </ion-item-sliding>
-  
-        <ion-item-sliding>
-          <ion-item lines="none">
-            <ion-avatar slot="start">
-              <img src="../../../assets/img/motobomba.jpeg" />
-            </ion-avatar>
-            <ion-label>
-              Angel Rodriguez
-              <p class="mb-0">Colombia</p>
-            </ion-label>
-          </ion-item>
-        </ion-item-sliding>
+        <ng-container *ngIf="defensas.length != 0; else sinDef">
+          <ion-item-sliding *ngFor="let def of defensas">
+            <ion-item lines="none">
+              <ion-avatar slot="start">
+                <img [src]="(def.imgProfile == '') ? '../../../assets/img/imgProfile.png' : def.imgProfile" />
+              </ion-avatar>
+              <ion-label>
+                {{ def.name + ' ' + def.lastName}}
+                <p class="mb-0">{{ def.position }}</p>
+              </ion-label>
+            </ion-item>
+          </ion-item-sliding>
+        </ng-container>
+        <ng-template #sinDef>
+          <div class="p-4 text-center">
+            <p class="p-0">Aún no hay defensas en el equipo.</p>
+          </div>
+        </ng-template>
+
         
         <ion-item-divider>
-          <ion-label class="fw-bold">Mediocampistas</ion-label> 
+          <ion-label class="fw-bold">Mediocampistas</ion-label>
         </ion-item-divider>
-  
-        <ion-item-sliding>
-          <ion-item lines="none">
-            <ion-avatar slot="start">
-              <img src="../../../assets/img/motobomba.jpeg" />
-            </ion-avatar>
-            <ion-label>
-              ©️ Dario Higuita
-              <p class="mb-0">Colombia</p>
-            </ion-label>
-          </ion-item>
-        </ion-item-sliding>
-  
+        <ng-container *ngIf="mediocampistas.length != 0; else sinMed">
+          <ion-item-sliding *ngFor="let med of mediocampistas">
+            <ion-item lines="none">
+              <ion-avatar slot="start">
+                <img [src]="(med.imgProfile == '') ? '../../../assets/img/imgProfile.png' : med.imgProfile" />
+              </ion-avatar>
+              <ion-label>
+                {{ med.name + ' ' + med.lastName}}
+                <p class="mb-0">{{ med.position }}</p>
+              </ion-label>
+            </ion-item>
+          </ion-item-sliding>
+        </ng-container>
+        <ng-template #sinMed>
+          <div class="p-4 text-center">
+            <p class="p-0">Aún no hay mediocampistas en el equipo.</p>
+          </div>
+        </ng-template>
+
         <ion-item-divider>
-          <ion-label class="fw-bold">Delanteros</ion-label> 
+          <ion-label class="fw-bold">Delanteros</ion-label>
         </ion-item-divider>
-  
-        <ion-item-sliding>
-          <ion-item lines="none">
-            <ion-avatar slot="start">
-              <img src="../../../assets/img/motobomba.jpeg" />
-            </ion-avatar>
-            <ion-label>
-              ©️ Jaime Ramos
-              <p class="mb-0">Colombia</p>
-            </ion-label>
-          </ion-item>
-        </ion-item-sliding>
+        <ng-container *ngIf="delanteros.length != 0;else sinDel">
+          <ion-item-sliding *ngFor="let del of delanteros">
+            <ion-item lines="none">
+              <ion-avatar slot="start">
+                <img [src]="(del.imgProfile == '') ? '../../../assets/img/imgProfile.png' : del.imgProfile" />
+              </ion-avatar>
+              <ion-label>
+                {{ del.name + ' ' + del.lastName}}
+                <p class="mb-0">{{ del.position }}</p>
+              </ion-label>
+            </ion-item>
+          </ion-item-sliding>
+        </ng-container>
+        <ng-template #sinDel>
+          <div class="p-4 text-center">
+            <p class="p-0">Aún no hay delanteros en el equipo.</p>
+          </div>
+        </ng-template>
         
-      </ion-item-group>-->
+      </ion-item-group>
     </ion-list>
   
     <ion-list *ngSwitchCase="'coachs'">
