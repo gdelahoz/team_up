@@ -39,7 +39,7 @@
               </ion-item>
               <div class="pt-3 d-flex justify-content-end gap-2">
                 <ion-button color="tertiary" type="submit" (click)="onSelectImgUpdate()">
-                  Imagen <ion-icon slot="end" name="image"></ion-icon>
+                  Fotos <ion-icon slot="end" name="image"></ion-icon>
                 </ion-button>
                 <ion-button color="secondary" type="submit" (click)="updateTeam(name, description, country, campus, birthday)">
                   Actualizar <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
@@ -47,17 +47,30 @@
               </div>
             </div>
           </ion-card>
-          <ion-card *ngIf="imgState == true" class="p-4">
-            <ion-item class="mb-2 ion-no-padding">
-              <ion-label  class="mb-3" position="stacked">Imagen del equipo</ion-label>
-              <input style="font-size: 0.8rem;" accept="image/*" class="form-control mb-1" (change)="uploadImg($event)" type="file" #imgLogo>
-            </ion-item>
-            <div class="pt-3 d-flex justify-content-end gap-2">
-              <ion-button color="secondary" type="submit" (click)="updateImgTeam()">
-                Actualizar imagen
-              </ion-button>
-            </div>
-          </ion-card>
+          <ng-container *ngIf="imgState == true">
+            <ion-card class="p-4">
+              <ion-item class="mb-2 ion-no-padding">
+                <ion-label  class="mb-3" position="stacked">Escudo del equipo</ion-label>
+                <input style="font-size: 0.8rem;" accept="image/*" class="form-control mb-1" (change)="uploadImg($event)" type="file" #imgLogo>
+              </ion-item>
+              <div class="pt-3 d-flex justify-content-end gap-2">
+                <ion-button color="secondary" type="submit" (click)="updateImgLogoTeam()">
+                  Guardar escudo
+                </ion-button>
+              </div>
+            </ion-card>
+            <ion-card class="p-4">
+              <ion-item class="mb-2 ion-no-padding">
+                <ion-label  class="mb-3" position="stacked">Portada del equipo</ion-label>
+                <input style="font-size: 0.8rem;" accept="image/*" class="form-control mb-1" (change)="uploadImg($event)" type="file" #imgBanner>
+              </ion-item>
+              <div class="pt-3 d-flex justify-content-end gap-2">
+                <ion-button color="secondary" type="submit" (click)="updateImgBannerTeam()">
+                  Guadar portada
+                </ion-button>
+              </div>
+            </ion-card>
+          </ng-container>
         </ion-col>
       </ion-row>
     </ion-grid>

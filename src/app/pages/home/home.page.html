@@ -4,19 +4,21 @@
 
 <ion-content [fullscreen]="true">
   <team-card-infoteam 
+    [imageBanner]="teamData.imgBanner"
     [image]="teamData.imgLogo" 
     [team]="teamData.name" 
     title="Nuestro equipo" 
-    [info]="teamData.description">
+    [info]="teamData.description"
+    [rol]="userData.rol">
   </team-card-infoteam>
 
   <ion-label color="primary" class="fs-5 fw-bold mx-3">Anuncios recientes</ion-label>
-  <ng-container *ngIf="announcementsList.length !== 0; else elseBlock">
+  <ng-container *ngIf="announcementsList.length !== 0; else emptyAnn">
     <ng-container *ngFor="let ann of announcementsList ; let i = index">
-      <team-card-advertising (click)="openPopoverAnn( $event , ann.id, i.toString() )" [title]="ann.title" [description]="ann.description" [subtitle]="ann.autor"></team-card-advertising>
+      <team-card-advertising (click)="openPopoverAnn( $event , ann.id, i.toString() )" [rol]="userData.rol" [title]="ann.title" [description]="ann.description" [subtitle]="ann.autor"></team-card-advertising>
     </ng-container>
   </ng-container>
-  <ng-template #elseBlock>
+  <ng-template #emptyAnn>
     <div class="p-5 text-center" style="color: #666666">
       <ion-icon  name="megaphone" style="font-size: 42px"></ion-icon>
       <p class="m-0">No hay anuncios recientes</p>

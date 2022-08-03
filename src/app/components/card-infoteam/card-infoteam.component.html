@@ -1,19 +1,22 @@
 <ion-card class="m-3">
   <div class="w-100 banner-card">
-    <img class="h-100 w-100" [src]="(image == '') ? '../../../assets/img/no-image.png' : image" alt="Banner team">
+    <img class="h-100 w-100" [src]="(!imageBanner) ? '../../../assets/img/no-image.png' : imageBanner" alt="Banner team">
   </div>
   <ion-card-header>
-    <div class="d-flex align-items-center ion-justify-content-between">
-      <div class="d-flex align-items-center">
-        <ion-icon class="me-2" slot="start" name="shield"></ion-icon>
-        <ion-card-subtitle>{{ team }}</ion-card-subtitle>
-      </div>
-      <ion-button size="small" slot="end">Ver más</ion-button>
+    <img class="img-logo" [src]="(image == '') ? '../../../assets/img/no-image.png' : image" width="80" height="80">
+    <div class="d-flex align-items-center">
+      <ion-icon class="me-2" slot="start" name="shield"></ion-icon>
+      <ion-card-subtitle>{{ team }}</ion-card-subtitle>
     </div>
     <ion-card-title>{{ title }}</ion-card-title>
   </ion-card-header>
-
-  <ion-card-content (click)="editInfoTeam()" button>
-    <p>{{ (info !== undefined) ? info : 'No hay una descripción en el equipo, selecciona aquí para agregar una.' }}</p>
+  <ion-card-content>
+    <p>{{ (info !== "") ? info : 'Aún no hay una descripción para el equipo.' }}</p>
+    <div *ngIf="rol == 'Entrenador'" class="d-flex justify-content-end">
+      <ion-button color="tertiary" (click)="editInfoTeam()" size="small">
+        <ion-icon slot="start" name="create"></ion-icon>
+        Editar
+      </ion-button>
+    </div>
   </ion-card-content>
 </ion-card>

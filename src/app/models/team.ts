@@ -9,6 +9,7 @@ export interface Team {
 
     name: string;
     imgLogo?: string;
+    imgBanner?: string;
     description?: string;
     country: string;
     campus: string;

@@ -9,6 +9,7 @@ export class CardAdvertisingComponent implements OnInit {
   @Input() title: string;
   @Input() subtitle: string;
   @Input() description: string;
+  @Input() rol?: string;
   
   constructor() { }
 

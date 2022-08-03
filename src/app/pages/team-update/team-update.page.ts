@@ -66,7 +66,29 @@ export class TeamUpdatePage implements OnInit {
     return ulr;
   }
 
-  async updateImgTeam(){
+  async updateImgBannerTeam(){
+    await this.interaction.showLoading('Actualizando imagen...');
+    let img;
+    await this.enviar().then(res => { img = res })
+    console.log('RUTA IMAGEN ->>', img);
+    
+    this.firestoreService.editTeam(this.teamData.id, {imgBanner: img});
+
+    await new Promise((resolve) => {
+      this.firestoreService.getTeamData(this.teamData.id).subscribe(async res => {
+        this.team = await res;
+        //console.log(this.team);
+        localStorage.setItem('infoTeam', JSON.stringify(this.team));
+        resolve("Promesa resuelta");
+      });
+    });
+    
+    this.interaction.closeLoading();
+    this.interaction.presentToast('Imagen actualizada.');
+    this.nav.navigateBack(['/tabs/home']);
+  }
+
+  async updateImgLogoTeam(){
     await this.interaction.showLoading('Actualizando imagen...');
     let img;
     await this.enviar().then(res => { img = res })

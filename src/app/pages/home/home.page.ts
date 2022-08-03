@@ -59,26 +59,30 @@ export class homePage implements OnInit{
   }
 
   async openPopoverAnn( evento , id, index ){
-    const popover = await this.popoverCtrl.create({
-      component: PopoverAnnouncementComponent,
-      event: evento,
-      componentProps: {id: id, index: index}
-    });
-
-    popover.onDidDismiss().then((dataReturned) => {
-      if (dataReturned !== null) {
-        
-        this.dataReturned = dataReturned.data;
-
-        if (this.dataReturned) {
-          this.announcementsList.splice(this.dataReturned, 1);
-          this.intService.presentToast('Anuncio eliminado.');
+    if (this.userData.rol != "Jugador") {
+      const popover = await this.popoverCtrl.create({
+        component: PopoverAnnouncementComponent,
+        event: evento,
+        componentProps: {id: id, index: index}
+      });
+  
+      popover.onDidDismiss().then((dataReturned) => {
+        if (dataReturned !== null) {
+          
+          this.dataReturned = dataReturned.data;
+  
+          if (this.dataReturned) {
+            this.announcementsList.splice(this.dataReturned, 1);
+            this.intService.presentToast('Anuncio eliminado.');
+          }
+          // console.log(this.dataReturned); imprime el dato recibido del componente
+          // alert('Modal Sent Data :'+ dataReturned);
         }
-        // console.log(this.dataReturned); imprime el dato recibido del componente
-        // alert('Modal Sent Data :'+ dataReturned);
-      }
-    });
-    
-    await popover.present();
+      });
+      
+      await popover.present();
+    } else {
+      console.log('No tienes permisos para eliminar.');
+    }
   }
 }

@@ -1,13 +1,30 @@
-<ion-card class="mx-3 mt-3" button>
-  <ion-card-header>
-    <div class="d-flex align-items-center">
-      <ion-icon class="me-2" slot="start" name="megaphone"></ion-icon>
-      <ion-card-subtitle>{{ subtitle }}</ion-card-subtitle>
-    </div>
-    <ion-card-title>{{ title }}</ion-card-title>
-  </ion-card-header>
-
-  <ion-card-content>
-    {{ (description !== undefined) ? description : 'Ingresa aquí para publicar un anuncio.' }}
-  </ion-card-content>
-</ion-card>
+<ng-container *ngIf="rol != 'Jugador'; else playerCard ">
+  <ion-card class="mx-3 mt-3 mb-5" button>
+    <ion-card-header>
+      <div class="d-flex align-items-center">
+        <ion-icon class="me-2" slot="start" name="megaphone"></ion-icon>
+        <ion-card-subtitle>{{ subtitle }}</ion-card-subtitle>
+      </div>
+      <ion-card-title>{{ title }}</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      {{ (description !== undefined) ? description : 'Ingresa aquí para publicar un anuncio.' }}
+    </ion-card-content>
+  </ion-card>
+</ng-container>
+<ng-template #playerCard>
+  <ion-card class="mx-3 mt-3 mb-5">
+    <ion-card-header>
+      <div class="d-flex align-items-center">
+        <ion-icon class="me-2" slot="start" name="megaphone"></ion-icon>
+        <ion-card-subtitle>{{ subtitle }}</ion-card-subtitle>
+      </div>
+      <ion-card-title>{{ title }}</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      {{ (description !== "") ? description : 'Este anuncio no tiene descripción.' }}
+    </ion-card-content>
+  </ion-card>
+</ng-template>

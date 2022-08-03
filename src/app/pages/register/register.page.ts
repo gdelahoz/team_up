@@ -46,6 +46,7 @@ export class RegisterPage implements OnInit {
         name: teamName.value,
         description: '',
         imgLogo: '',
+        imgBanner: '',
         country: this.teamCountry,
         campus: campus.value,
         birthday: teamBirthday.value

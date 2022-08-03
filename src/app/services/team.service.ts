@@ -59,7 +59,7 @@ export class TeamService {
         });
       })
 
-    console.log("usersMap: ", users.map( (user) => user = user.uid));
+    //console.log("usersMap: ", users.map( (user) => user = user.uid));
 
 
     const users2 = users.map(
@@ -69,7 +69,7 @@ export class TeamService {
         return obj;
       }
     );
-    console.log("users2: ", users2);
+    //console.log("users2: ", users2);
 
 
     return users2;
