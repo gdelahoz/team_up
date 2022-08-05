@@ -7,6 +7,7 @@ import { InteractionService } from 'src/app/services/interaction.service';
 import { Team } from 'src/app/models/team';
 import { NavController } from '@ionic/angular';
 import { Timestamp } from 'firebase/firestore';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-announcements',
@@ -17,17 +18,31 @@ export class CreateAnnouncementsPage implements OnInit {
   userData: UserI;
   teamData: Team;
   team: Team;
+  annForm: FormGroup;
+  isSubmitted = false;
 
   constructor(
     private interaction: InteractionService,
     private annService: AnnouncementService,
-    //private firestoreService: FirestoreService,
-    private nav: NavController
+    private nav: NavController,
+    public formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
+    this.annForm = this.formBuilder.group({
+      title: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
+      description: ['', [Validators.required, Validators.maxLength(250)]]
+    })
     this.getUserData();
     this.getTeamData();
+  }
+
+  algo(){
+    console.log(this.annForm);
+  }
+
+  get errorControl() {
+    return this.annForm.controls;
   }
 
   getUserData(){
@@ -38,7 +53,7 @@ export class CreateAnnouncementsPage implements OnInit {
     this.teamData = JSON.parse(localStorage.getItem('infoTeam')) as Team;
   }
 
-  /*generateRandomString(num) {
+  /* Generar id con caracteres aleatorios generateRandomString(num) {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = ' ';
     const charactersLength = characters.length;
@@ -48,34 +63,40 @@ export class CreateAnnouncementsPage implements OnInit {
     return result;
   }*/
 
-  async createAnnouncement(title, description){
+  async createAnnouncement(){
     await this.interaction.showLoading('Publicando...');
-    
-    const datos: Announcement = {
-      teamId: this.teamData.id,
-      coachId: this.userData.uid,
-
-      title: title.value,
-      description: description.value,
-      autor: this.userData.name + ' ' + this.userData.lastName,
-
-      createdAt: Timestamp.now()
-    }
-
-    this.annService.createAnnouncements(datos).catch(error => {
+    this.isSubmitted = true;
+    if (!this.annForm.valid) {
       this.interaction.closeLoading();
-      this.interaction.presentToast('Ocurrió un error al guardar anuncio.');
-      console.log('Error anuncio ->', error);
-    })
-
-    await new Promise((resolve) => {
-      this.annService.getAnnouncementData(this.teamData.id);
-      resolve("Promesa resuelta");
-    });
+      return false;
+    } else {
+      const datos: Announcement = {
+        teamId: this.teamData.id,
+        coachId: this.userData.uid,
+  
+        title: this.annForm.value.title,
+        description: this.annForm.value.description,
+        autor: this.userData.name + ' ' + this.userData.lastName,
+  
+        createdAt: Timestamp.now()
+      }
+  
+      this.annService.createAnnouncements(datos).catch(error => {
+        this.interaction.closeLoading();
+        this.interaction.presentToast('Ocurrió un error al guardar anuncio.');
+        console.log('Error anuncio ->', error);
+      })
+  
+      await new Promise((resolve) => {
+        this.annService.getAnnouncementData(this.teamData.id);
+        resolve("Promesa resuelta");
+      });
+      
+      this.interaction.closeLoading();
+      this.interaction.presentToast('Anuncio creado correctamente.');
+      this.nav.navigateBack(['/tabs/home']);
+    }
     
-    this.interaction.closeLoading();
-    this.interaction.presentToast('Anuncio creado correctamente.');
-    this.nav.navigateBack(['/tabs/home']);
   }
 
   /*async updateAnnouncement(title, description){

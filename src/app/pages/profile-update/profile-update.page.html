@@ -3,132 +3,235 @@
 </ion-header>
 
 <ion-content>
-  <form>
-    <ion-grid>
-      <ion-row color="primary" class="mb-3 justify-content-center">
-        <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+  <ion-grid>
+    <ion-row color="primary" class="mb-3 justify-content-center">
+      <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+        <form [formGroup]="imgProfileForm">
           <ion-card class="p-4">
-            <div>
-              <div class="text-dark mb-2">
-                <ion-label class="fs-4 fw-bold">Foto de perfil</ion-label><br>
-              </div>
-              <ion-item class="mb-2 ion-no-padding">
-                <ion-label  class="mb-3" position="stacked">Foto de perfil</ion-label>
-                <input style="font-size: 0.8rem;" accept="image/*" class="form-control mb-1" (change)="uploadImg($event)" type="file" #imgProfile>
-              </ion-item>
-              <div class="pt-3 d-flex justify-content-end gap-2">
-                <ion-button (click)="updateImgUser()" color="secondary">
-                  Actualizar imagen <ion-icon slot="end" name="save"></ion-icon>
-                </ion-button>
-              </div>
+            <div class="text-dark mb-2">
+              <ion-label class="fs-4 fw-bold">Foto de perfil</ion-label><br>
+            </div>
+            <ion-item class="mb-2 ion-no-padding">
+              <ion-label  class="mb-3" position="stacked">Foto de perfil</ion-label>
+              <input style="font-size: 0.8rem;" accept="image/*" formControlName="imgProfile" class="form-control mb-1" (change)="uploadImg($event)" type="file">
+            </ion-item>
+            <!-- Error messages -->
+            <span class="error ion-padding" *ngIf="isSubmitted && errorControlImg.imgProfile.errors?.required">
+              Campo requerido.
+            </span>
+            <div class="pt-3 d-flex justify-content-end gap-2">
+              <ion-button (click)="updateImgUser()" color="secondary">
+                Actualizar imagen <ion-icon slot="end" name="save"></ion-icon>
+              </ion-button>
             </div>
           </ion-card>
-          <ion-card  class="p-4">
-            <div>
+        </form>
+        <ion-card class="p-4">
+          <form [formGroup]="playerForm" *ngIf="userData.rol == 'Jugador'; else usertemplate">
+            <div class="text-dark mb-2">
+              <ion-label class="fs-4 fw-bold">Datos de usuario</ion-label><br>
+            </div>
+            <ion-item class="mb-2 ion-no-padding">
+              <ion-label position="stacked">Correo</ion-label>
+              <ion-input formControlName="email" type="email" #email></ion-input>
+            </ion-item>
+            <ion-item class="mb-2 ion-no-padding">
+              <ion-label position="stacked">Nombre</ion-label>
+              <ion-input formControlName="name" type="name" #name></ion-input>
+            </ion-item>
+            <!-- Error messages -->
+            <span class="error ion-padding" *ngIf="isSubmitted && errorControlPlayer.name.errors?.required">
+              Campo requerido.
+            </span>
+            <span class="error ion-padding" *ngIf="isSubmitted && (errorControlPlayer.name.errors?.minlength || errorControlPlayer.name.errors?.maxlength)">
+              El nombre debe tener entre 3 a 30 caracteres.
+            </span>
+            <ion-item class="mb-2 ion-no-padding ion-no-padding">
+              <ion-label position="stacked">Apellidos</ion-label>
+              <ion-input formControlName="lastname" type="family-name" #lastname></ion-input>
+            </ion-item>
+            <!-- Error messages -->
+            <span class="error ion-padding" *ngIf="isSubmitted && errorControlPlayer.lastname.errors?.required">
+              Campo requerido.
+            </span>
+            <span class="error ion-padding" *ngIf="isSubmitted && (errorControlPlayer.lastname.errors?.minlength || errorControlPlayer.lastname.errors?.maxlength)">
+              El apellido debe tener entre 3 a 40 caracteres.
+            </span>
+            <ion-item class="mb-2 ion-no-padding">
+              <ion-label position="stacked">Telefono</ion-label>
+              <ion-input maxlength="10" formControlName="tel" type="number" #tel></ion-input>
+            </ion-item>
+            <!-- Error messages -->
+            <span class="error ion-padding" *ngIf="isSubmitted && errorControlPlayer.tel.errors?.required">
+              Campo requerido.
+            </span>
+            <span class="error ion-padding" *ngIf="isSubmitted && (errorControlPlayer.tel.errors?.min || errorControlPlayer.tel.errors?.max)">
+              El telefono debe tener entre 6 a 13 caracteres.
+            </span>
+            <ion-item class="mb-2 ion-no-padding">
+              <ion-label>Nacimiento</ion-label>
+              <input class="form-control min-content" [max]="maxDate" type="date" formControlName="birthday" #birthday>
+            </ion-item>
+            <!-- Error messages -->
+            <span class="error ion-padding" *ngIf="isSubmitted && errorControlPlayer.birthday.errors?.required">
+              Campo requerido.
+            </span>
+            <ion-item class="mb-2 ion-no-padding">
+              <ion-label position="stacked">Altura(cm)</ion-label>
+              <ion-input type="number" formControlName="height" #height></ion-input>
+            </ion-item>
+            <!-- Error messages -->
+            <span class="error ion-padding" *ngIf="isSubmitted && errorControlPlayer.height.errors?.required">
+              Campo requerido.
+            </span>
+            <span class="error ion-padding" *ngIf="isSubmitted && (errorControlPlayer.height.errors?.min || errorControlPlayer.height.errors?.max)">
+              El rango de altura es de 60 a 250 cm
+            </span>
+            <ion-item class="mb-2 ion-no-padding">
+              <ion-label position="stacked">Peso(kg)</ion-label>
+              <ion-input type="number" formControlName="weight" #weight></ion-input>
+            </ion-item>
+            <!-- Error messages -->
+            <span class="error ion-padding" *ngIf="isSubmitted && errorControlPlayer.weight.errors?.required">
+              Campo requerido.
+            </span>
+            <span class="error ion-padding" *ngIf="isSubmitted && (errorControlPlayer.weight.errors?.min || errorControlPlayer.weight.errors?.max)">
+              El rango de peso es de 30 a 150 kg
+            </span>
+            <ion-item class="mb-2 ion-no-padding">
+              <ion-label position="stacked">Dorsal favorito</ion-label>
+              <ion-input type="number" formControlName="dorsal" #dorsal></ion-input>
+            </ion-item>
+            <span class="error ion-padding" *ngIf="isSubmitted && (errorControlPlayer.dorsal.errors?.min || errorControlPlayer.dorsal.errors?.max)">
+              Dorsal desde el 1 al 99
+            </span>
+            <ion-list>
+              <ion-item class="ion-no-padding">
+                <ion-label position="stacked">Posición</ion-label>
+                <ion-select formControlName="position" #position>
+                  <ion-select-option value="Portero">Portero</ion-select-option>
+                  <ion-select-option value="Defensor central">Defensor</ion-select-option>
+                  <ion-select-option value="Lateral derecho">Lateral derecho</ion-select-option>
+                  <ion-select-option value="Lateral izquierdo">Lateral izquierdo</ion-select-option>
+                  <ion-select-option value="Mediocampista central">Mediocampista central</ion-select-option>
+                  <ion-select-option value="Mediocampista derecho">Mediocampista derecho</ion-select-option>
+                  <ion-select-option value="Mediocampista izquierdo">Mediocampista izquierdo</ion-select-option>
+                  <ion-select-option value="Extremo derecho">Extremo derecho</ion-select-option>
+                  <ion-select-option value="Extremo izquierdo">Extremo izquierdo</ion-select-option>
+                  <ion-select-option value="Delantero centro">Delantero centro</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <!-- Error messages -->
+              <span class="error ion-padding" *ngIf="isSubmitted && errorControlPlayer.position.errors?.required">
+                Campo requerido.
+              </span>
+            </ion-list>
+            <ion-list>
+              <ion-item class="ion-no-padding">
+                <ion-label position="stacked">Segundo posición</ion-label>
+                <ion-select formControlName="secondPosition" #secondPosition>
+                  <ion-select-option value="Portero">Portero</ion-select-option>
+                  <ion-select-option value="Defensor central">Defensor</ion-select-option>
+                  <ion-select-option value="Lateral derecho">Lateral derecho</ion-select-option>
+                  <ion-select-option value="Lateral izquierdo">Lateral izquierdo</ion-select-option>
+                  <ion-select-option value="Mediocampista central">Mediocampista central</ion-select-option>
+                  <ion-select-option value="Mediocampista derecho">Mediocampista derecho</ion-select-option>
+                  <ion-select-option value="Mediocampista izquierdo">Mediocampista izquierdo</ion-select-option>
+                  <ion-select-option value="Extremo derecho">Extremo derecho</ion-select-option>
+                  <ion-select-option value="Extremo izquierdo">Extremo izquierdo</ion-select-option>
+                  <ion-select-option value="Delantero centro">Delantero centro</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <!-- Error messages -->
+              <span class="error ion-padding" *ngIf="isSubmitted && errorControlPlayer.secondPosition.errors?.required">
+                Campo requerido.
+              </span>
+            </ion-list>
+            <div class="pt-3 d-flex justify-content-end gap-2">
+              <ion-button (click)="updatePlayer(name, lastname, tel, birthday, height, weight, dorsal, position, secondPosition)" color="secondary">
+                Guardar <ion-icon slot="end" name="save"></ion-icon>
+              </ion-button>
+            </div>
+          </form>
+          <ng-template #usertemplate>
+            <form [formGroup]="userForm">
               <div class="text-dark mb-2">
                 <ion-label class="fs-4 fw-bold">Datos de usuario</ion-label><br>
               </div>
               <ion-item class="mb-2 ion-no-padding">
                 <ion-label position="stacked">Correo</ion-label>
-                <ion-input name="email" type="email" [value]="userData.email" #email disabled></ion-input>
+                <ion-input name="email" formControlName="email" type="email" #email></ion-input>
               </ion-item>
+              <!-- Error messages -->
+              <span class="error ion-padding" *ngIf="isSubmitted && errorControlUser.email.errors?.required">
+                Campo requerido.
+              </span>
               <ion-item class="mb-2 ion-no-padding">
                 <ion-label position="stacked">Nombre</ion-label>
-                <ion-input name="name" type="name" [value]="userData.name" #name></ion-input>
+                <ion-input name="name" formControlName="name" type="name" #name></ion-input>
               </ion-item>
+              <!-- Error messages -->
+              <span class="error ion-padding" *ngIf="isSubmitted && errorControlUser.name.errors?.required">
+                Campo requerido.
+              </span>
+              <span class="error ion-padding" *ngIf="isSubmitted && (errorControlUser.name.errors?.minlength || errorControlUser.name.errors?.maxlength)">
+                El nombre debe tener entre 3 a 30 caracteres.
+              </span>
               <ion-item class="mb-2 ion-no-padding ion-no-padding">
                 <ion-label position="stacked">Apellidos</ion-label>
-                <ion-input name="lastname" type="family-name" [value]="userData.lastName" #lastname></ion-input>
+                <ion-input name="lastname" formControlName="lastname" type="family-name" #lastname></ion-input>
               </ion-item>
+              <!-- Error messages -->
+              <span class="error ion-padding" *ngIf="isSubmitted && errorControlUser.lastname.errors?.required">
+                Campo requerido.
+              </span>
+              <span class="error ion-padding" *ngIf="isSubmitted && (errorControlUser.lastname.errors?.minlength || errorControlUser.lastname.errors?.maxlength)">
+                El apellido debe tener entre 3 a 40 caracteres.
+              </span>
               <ion-item class="mb-2 ion-no-padding">
                 <ion-label position="stacked">Telefono</ion-label>
-                <ion-input name="tel" type="number" [value]="userData.tel" #tel></ion-input>
+                <ion-input name="tel" formControlName="tel" type="number" #tel></ion-input>
               </ion-item>
+              <!-- Error messages -->
+              <span class="error ion-padding" *ngIf="isSubmitted && errorControlUser.tel.errors?.required">
+                Campo requerido.
+              </span>
+              <span class="error ion-padding" *ngIf="isSubmitted && (errorControlUser.tel.errors?.min || errorControlUser.tel.errors?.max)">
+                El telefono debe tener entre 6 a 13 caracteres.
+              </span>
               <ion-item class="mb-2 ion-no-padding">
                 <ion-label>Nacimiento</ion-label>
-                <input class="form-control min-content" type="date" [value]="userData.birthday" #birthday>
+                <input class="form-control min-content" [max]="maxDate" type="date" formControlName="birthday" #birthday>
               </ion-item>
-              <ng-container *ngIf="userData.rol == 'Jugador'">
-                <ion-item class="mb-2 ion-no-padding">
-                  <ion-label position="stacked">Altura(cm)</ion-label>
-                  <ion-input name="height" type="number" [value]="playerData.height" #height></ion-input>
-                </ion-item>
-                <ion-item class="mb-2 ion-no-padding">
-                  <ion-label position="stacked">Peso(kg)</ion-label>
-                  <ion-input name="weight" type="number" [value]="playerData.weight" #weight></ion-input>
-                </ion-item>
-                <ion-item class="mb-2 ion-no-padding">
-                  <ion-label position="stacked">Dorsal favorito</ion-label>
-                  <ion-input name="dorsal" type="number" [value]="playerData.dorsal" #dorsal></ion-input>
-                  <!--<ng-template #inputDorsal>
-                    <ion-input name="dorsal" type="number" placeholder="10" #dorsal></ion-input>
-                  </ng-template>-->
-                </ion-item>
-                <ion-list>
-                  <ion-item class="ion-no-padding">
-                    <ion-label position="stacked">Posición</ion-label>
-                    <ion-select [value]="playerData.position" #position>
-                      <ion-select-option value="Portero">Portero</ion-select-option>
-                      <ion-select-option value="Defensor central">Defensor</ion-select-option>
-                      <ion-select-option value="Lateral derecho">Lateral derecho</ion-select-option>
-                      <ion-select-option value="Lateral izquierdo">Lateral izquierdo</ion-select-option>
-                      <ion-select-option value="Mediocampista central">Mediocampista central</ion-select-option>
-                      <ion-select-option value="Mediocampista derecho">Mediocampista derecho</ion-select-option>
-                      <ion-select-option value="Mediocampista izquierdo">Mediocampista izquierdo</ion-select-option>
-                      <ion-select-option value="Extremo derecho">Extremo derecho</ion-select-option>
-                      <ion-select-option value="Extremo izquierdo">Extremo izquierdo</ion-select-option>
-                      <ion-select-option value="Delantero centro">Delantero centro</ion-select-option>
-                    </ion-select>
-                  </ion-item>
-                </ion-list>
-                <ion-list>
-                  <ion-item class="ion-no-padding">
-                    <ion-label position="stacked">Segundo posición</ion-label>
-                    <ion-select [value]="playerData.secondPosition" #secondPosition>
-                      <ion-select-option value="Portero">Portero</ion-select-option>
-                      <ion-select-option value="Defensor central">Defensor</ion-select-option>
-                      <ion-select-option value="Lateral derecho">Lateral derecho</ion-select-option>
-                      <ion-select-option value="Lateral izquierdo">Lateral izquierdo</ion-select-option>
-                      <ion-select-option value="Mediocampista central">Mediocampista central</ion-select-option>
-                      <ion-select-option value="Mediocampista derecho">Mediocampista derecho</ion-select-option>
-                      <ion-select-option value="Mediocampista izquierdo">Mediocampista izquierdo</ion-select-option>
-                      <ion-select-option value="Extremo derecho">Extremo derecho</ion-select-option>
-                      <ion-select-option value="Extremo izquierdo">Extremo izquierdo</ion-select-option>
-                      <ion-select-option value="Delantero centro">Delantero centro</ion-select-option>
-                    </ion-select>
-                  </ion-item>
-                </ion-list>
-                <div class="pt-3 d-flex justify-content-end gap-2">
-                  <ion-button (click)="updatePlayer(name, lastname, tel, birthday, height, weight, dorsal, position, secondPosition)" color="secondary">
-                    Guardar <ion-icon slot="end" name="save"></ion-icon>
-                  </ion-button>
-                </div>
-              </ng-container>
-              <div *ngIf="userData.rol != 'Jugador'" class="pt-3 d-flex justify-content-end gap-2">
+              <!-- Error messages -->
+              <span class="error ion-padding" *ngIf="isSubmitted && errorControlUser.birthday.errors?.required">
+                Campo requerido.
+              </span>
+              <div class="pt-3 d-flex justify-content-end gap-2">
                 <ion-button (click)="updateUser(name, lastname, tel, birthday)" color="secondary">
                   Guardar <ion-icon slot="end" name="save"></ion-icon>
                 </ion-button>
               </div>
+            </form>
+          </ng-template>
+        </ion-card>
+        <!--<ion-card class="p-4">
+          <div>
+            <div class="text-dark mb-2">
+              <ion-label class="fs-4 fw-bold">Cambiar contraseña</ion-label><br>
             </div>
-          </ion-card>
-          <!--<ion-card class="p-4">
-            <div>
-              <div class="text-dark mb-2">
-                <ion-label class="fs-4 fw-bold">Cambiar contraseña</ion-label><br>
-              </div>
-              <ion-item class="mb-2 ion-no-padding">
-                <ion-label position="stacked">Nueva contraseña</ion-label>
-                <ion-input name="password" type="password" placeholder="Contraseña" #password></ion-input>
-              </ion-item>
-              <div class="pt-3 d-flex justify-content-end gap-2">
-                <ion-button color="secondary">
-                  Guardar contraseña <ion-icon slot="end" name="save"></ion-icon>
-                </ion-button>
-              </div>
+            <ion-item class="mb-2 ion-no-padding">
+              <ion-label position="stacked">Nueva contraseña</ion-label>
+              <ion-input name="password" type="password" placeholder="Contraseña" #password></ion-input>
+            </ion-item>
+            <div class="pt-3 d-flex justify-content-end gap-2">
+              <ion-button color="secondary">
+                Guardar contraseña <ion-icon slot="end" name="save"></ion-icon>
+              </ion-button>
             </div>
-          </ion-card>-->
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </form>
+          </div>
+        </ion-card>-->
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

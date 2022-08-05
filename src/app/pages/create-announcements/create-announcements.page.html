@@ -7,23 +7,37 @@
     <ion-grid>
       <ion-row color="primary" class="mb-3 justify-content-center">
         <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
-          <ion-card  class="p-4">
-            <div>
+          <form [formGroup]="annForm">
+            <ion-card class="p-4">
               <ion-item class="mb-2 ion-no-padding">
                 <ion-label position="stacked">Titulo</ion-label>
-                <ion-input name="title" type="text" placeholder="Titulo del anuncio" #title></ion-input>
+                <ion-input name="title" formControlName="title" type="text" placeholder="Titulo del anuncio" #title></ion-input>
               </ion-item>
+              <!-- Error messages -->
+              <span class="error ion-padding" *ngIf="isSubmitted && errorControl.title.errors?.required">
+                Campo requerido.
+              </span>
+              <span class="error ion-padding" *ngIf="isSubmitted && (errorControl.title.errors?.maxlength || errorControl.title.errors?.minlength)">
+                El titulo debe tener entre 4 a 40 caracteres.
+              </span>
               <ion-item class="mb-2 ion-no-padding">
                 <ion-label position="stacked">Descripción</ion-label>
-                <ion-textarea name="description" rows="6"  placeholder="Escriba aquí..." #description></ion-textarea>
+                <ion-textarea name="description" rows="6" formControlName="description" placeholder="Escriba aquí..." #description></ion-textarea>
               </ion-item>
+              <!-- Error messages -->
+              <span class="error ion-padding" *ngIf="isSubmitted && errorControl.description.errors?.required">
+                Campo requerido.
+              </span>
+              <span class="error ion-padding" *ngIf="isSubmitted && errorControl.description.errors?.maxlength">
+                La descripción debe tener máximo 250 caracteres.
+              </span>
               <div class="pt-3 d-flex justify-content-end gap-2">
-                <ion-button color="secondary" (click)="createAnnouncement(title, description)" type="submit">
-                  Guardar <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+                <ion-button color="secondary" (click)="createAnnouncement()" type="submit">
+                  Publicar <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
                 </ion-button>
               </div>
-            </div>
-          </ion-card>
+            </ion-card>
+          </form>
         </ion-col>
       </ion-row>
     </ion-grid>

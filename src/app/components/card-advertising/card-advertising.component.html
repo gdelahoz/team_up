@@ -1,5 +1,5 @@
 <ng-container *ngIf="rol != 'Jugador'; else playerCard ">
-  <ion-card class="mx-3 mt-3 mb-5" button>
+  <ion-card class="mx-3 mt-3" button>
     <ion-card-header>
       <div class="d-flex align-items-center">
         <ion-icon class="me-2" slot="start" name="megaphone"></ion-icon>
@@ -14,7 +14,7 @@
   </ion-card>
 </ng-container>
 <ng-template #playerCard>
-  <ion-card class="mx-3 mt-3 mb-5">
+  <ion-card class="mx-3 mt-3">
     <ion-card-header>
       <div class="d-flex align-items-center">
         <ion-icon class="me-2" slot="start" name="megaphone"></ion-icon>
