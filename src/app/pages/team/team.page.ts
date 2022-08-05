@@ -1,3 +1,4 @@
+import { InteractionService } from './../../services/interaction.service';
 import { TeamService } from './../../services/team.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSegment, PopoverController } from '@ionic/angular';
@@ -27,8 +28,8 @@ export class teamPage implements OnInit{
   @ViewChild(IonSegment) segment: IonSegment;
 
   constructor( 
-    private popoverCtrl: PopoverController,
-    private teamService: TeamService
+    private teamService: TeamService,
+    private interaction: InteractionService
   ) {}
 
   ngOnInit(){
@@ -109,6 +110,19 @@ export class teamPage implements OnInit{
     if (this.userData) {
       this.delanteros = await this.teamService.getPlayerTeam(this.userData.teamId, "Jugador", forwardArray);
     }
+  }
+
+  copyId(){
+    // Copia el texto seleccionado
+    navigator.clipboard.writeText(this.teamData.id).then(
+    function(){
+        console.log("yeah!"); // success 
+    })
+    .catch(
+      function() {
+        console.log("err"); // error
+    });
+    this.interaction.presentToast('Se ha copiado el codigo al portapapeles.');
   }
 
   /*deletePlayerModal(){}
