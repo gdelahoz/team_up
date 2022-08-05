@@ -7,72 +7,115 @@
 </ion-header>
 
 <ion-content>
-  <form>
-    <ion-grid>
-      <ion-row color="primary" class="mb-3 justify-content-center">
-        <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
-          <ion-card  class="p-4 mb-3">
-            <div>
-              <ion-item class="mb-2 ion-no-padding">
-                <ion-label position="stacked">Nombre del equipo</ion-label>
-                <ion-input name="teamname" type="text" [value]="teamData.name" #name></ion-input>
-              </ion-item>
-              <ion-list>
-                <ion-item class="ion-no-padding">
-                  <ion-label position="stacked">País de origen</ion-label>
-                  <ion-select placeholder="País de origen" [value]="teamData.country" #country>
-                    <ion-select-option value="Colombia">Colombia</ion-select-option>
-                  </ion-select>
-                </ion-item>
-              </ion-list>
-              <ion-item class="mb-2 ion-no-padding">
-                <ion-label position="stacked">Sede deportiva</ion-label>
-                <ion-input name="campus" type="text" [value]="teamData.campus" #campus></ion-input>
-              </ion-item>
-              <ion-item class="mb-2 ion-no-padding">
-                <ion-label>Fundado el</ion-label>
-                <input class="form-control min-content" type="date" [value]="teamData.birthday" #birthday>
-              </ion-item>
-              <ion-item class="mb-2 ion-no-padding">
-                <ion-label position="stacked">Descripción</ion-label>
-                <ion-textarea name="description" rows="5" [value]="teamData.description" #description></ion-textarea>
-              </ion-item>
-              <div class="pt-3 d-flex justify-content-end gap-2">
-                <ion-button color="tertiary" type="submit" (click)="onSelectImgUpdate()">
-                  Fotos <ion-icon slot="end" name="image"></ion-icon>
-                </ion-button>
-                <ion-button color="secondary" type="submit" (click)="updateTeam(name, description, country, campus, birthday)">
-                  Actualizar <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
-                </ion-button>
-              </div>
+  <ion-grid>
+    <ion-row color="primary" class="justify-content-center">
+      <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+        <form [formGroup]="teamForm" (ngSubmit)="updateTeam()">
+          <ion-card class="p-4 mb-0 mx-2 ">
+            <div class="text-dark mb-2">
+              <ion-label class="fs-4 fw-bold">Datos del equipo</ion-label><br>
+            </div>
+            <ion-item class="mb-2 ion-no-padding">
+              <ion-label position="stacked">Nombre del equipo</ion-label>
+              <ion-input formControlName="name" type="text" #name></ion-input>
+            </ion-item>
+            <!-- Error messages -->
+            <span class="error ion-padding" *ngIf="isSubmitted && errorControlTeam.name.errors?.required">
+              Campo requerido.
+            </span>
+            <span class="error ion-padding" *ngIf="teamForm.get('name').hasError('minLength') && logoForm.get('name').touched">
+              El nombre debe tener mínimo 4 caracteres.
+            </span>
+            <ion-item class="ion-no-padding">
+              <ion-label position="stacked">País de origen</ion-label>
+              <ion-select formControlName="country" placeholder="País de origen" #country>
+                <ion-select-option value="Colombia">Colombia</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <!-- Error messages -->
+            <span class="error ion-padding" *ngIf="isSubmitted && errorControlTeam.country.errors?.required">
+              Campo requerido.
+            </span>
+            <ion-item class="mb-2 ion-no-padding">
+              <ion-label position="stacked">Sede deportiva</ion-label>
+              <ion-input formControlName="campus" type="text" #campus></ion-input>
+            </ion-item>
+            <!-- Error messages -->
+            <span class="error ion-padding" *ngIf="isSubmitted && errorControlTeam.campus.errors?.required">
+              Campo requerido.
+            </span>
+            <ion-item class="mb-2 ion-no-padding">
+              <ion-label>Fundado el</ion-label>
+              <input formControlName="birthday" [max]="maxDate" class="form-control min-content" type="date" #birthday>
+            </ion-item>
+            <!-- Error messages -->
+            <span class="error ion-padding" *ngIf="isSubmitted && errorControlTeam.birthday.errors?.required">
+              Campo requerido.
+            </span>
+            <ion-item class="mb-2 ion-no-padding">
+              <ion-label position="stacked">Descripción</ion-label>
+              <ion-textarea formControlName="description" rows="5" #description></ion-textarea>
+            </ion-item>
+            <!-- Error messages -->
+            <span class="error ion-padding" *ngIf="isSubmitted && errorControlTeam.description.errors?.maxLength">
+              Menos de 100 caracteres.
+            </span>
+            <div class="pt-3 d-flex justify-content-end gap-2">
+              <ion-button color="secondary" type="submit" >
+                Actualizar <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+              </ion-button>
             </div>
           </ion-card>
-          <ng-container *ngIf="imgState == true">
-            <ion-card class="p-4">
-              <ion-item class="mb-2 ion-no-padding">
-                <ion-label  class="mb-3" position="stacked">Escudo del equipo</ion-label>
-                <input style="font-size: 0.8rem;" accept="image/*" class="form-control mb-1" (change)="uploadImg($event)" type="file" #imgLogo>
-              </ion-item>
-              <div class="pt-3 d-flex justify-content-end gap-2">
-                <ion-button color="secondary" type="submit" (click)="updateImgLogoTeam()">
-                  Guardar escudo
-                </ion-button>
-              </div>
-            </ion-card>
-            <ion-card class="p-4">
-              <ion-item class="mb-2 ion-no-padding">
-                <ion-label  class="mb-3" position="stacked">Portada del equipo</ion-label>
-                <input style="font-size: 0.8rem;" accept="image/*" class="form-control mb-1" (change)="uploadImg($event)" type="file" #imgBanner>
-              </ion-item>
-              <div class="pt-3 d-flex justify-content-end gap-2">
-                <ion-button color="secondary" type="submit" (click)="updateImgBannerTeam()">
-                  Guadar portada
-                </ion-button>
-              </div>
-            </ion-card>
-          </ng-container>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </form>
+        </form>
+      </ion-col>
+    </ion-row>
+    <ion-row color="primary" class="justify-content-center">
+      <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+        <form [formGroup]="logoForm">
+          <ion-card class="p-4 my-0 mx-2 ">
+            <div class="text-dark mb-2">
+              <ion-label class="fs-4 fw-bold">Escudo</ion-label><br>
+            </div>
+            <ion-item class="mb-2 ion-no-padding">
+              <ion-label  class="mb-3" position="stacked">Escudo del equipo</ion-label>
+              <input style="font-size: 0.8rem;" accept="image/*" formControlName="imgLogo" class="form-control mb-1" (change)="uploadImg($event)" type="file" #imgLogo>
+            </ion-item>
+            <!-- Error messages -->
+            <span class="error ion-padding" *ngIf="logoForm.get('imgLogo').hasError('required') && logoForm.get('imgLogo').touched">
+              Campo requerido.
+            </span>
+            <div class="pt-3 d-flex justify-content-end gap-2">
+              <ion-button color="secondary" type="submit" [disabled]="logoForm.invalid" (click)="updateImgLogoTeam()">
+                Guardar escudo <ion-icon slot="end" name="shield"></ion-icon>
+              </ion-button>
+            </div>
+          </ion-card>
+        </form>
+      </ion-col>
+    </ion-row>
+    <ion-row color="primary" class="mb-3 justify-content-center">
+      <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+        <form [formGroup]="bannerForm">
+          <ion-card class="p-4 my-0 mx-2 ">
+            <div class="text-dark mb-2">
+              <ion-label class="fs-4 fw-bold">Portada</ion-label><br>
+            </div>
+            <ion-item class="mb-2 ion-no-padding">
+              <ion-label  class="mb-3" position="stacked">Portada del equipo</ion-label>
+              <input style="font-size: 0.8rem;" accept="image/*" class="form-control mb-1" formControlName="imgBanner" (change)="uploadImg($event)" type="file" #imgBanner>
+            </ion-item>
+            <!-- Error messages -->
+            <span class="error ion-padding" *ngIf="bannerForm.get('imgBanner').hasError('required') && bannerForm.get('imgBanner').touched">
+              Campo requerido.
+            </span>
+            <div class="pt-3 d-flex justify-content-end gap-2">
+              <ion-button color="secondary" type="submit" [disabled]="bannerForm.invalid" (click)="updateImgBannerTeam()">
+                Guadar portada <ion-icon slot="end" name="image"></ion-icon>
+              </ion-button>
+            </div>
+          </ion-card>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

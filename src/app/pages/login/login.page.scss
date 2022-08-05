@@ -1,5 +1,5 @@
 ion-content {
-    --background: linear-gradient(180deg, #ff7c36 0%, #152D93 85%);
+    --background: #152D93;
 }
 
 .logo{
@@ -14,4 +14,9 @@ ion-content {
 
 .pt-7{
     padding-top: 4rem;
+}
+
+.error{
+    color: rgb(194, 0, 0);
+    font-size: 10px;
 }

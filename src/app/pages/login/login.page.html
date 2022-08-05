@@ -1,13 +1,7 @@
-<!--<ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>-->
-
 <ion-content>
-  <form class="d-flex justify-content-center align-items-center h-100" #form="ngForm" (ngSubmit)="login(form)">
+  <form class="d-flex justify-content-center align-items-center h-100" [formGroup]="loginForm" (ngSubmit)="login()">
     <ion-grid>
-      <ion-row color="primary" class="mb-3 justify-content-center">
+      <ion-row color="primary" class="m-2 justify-content-center">
         <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
           <div  class="card p-4">
             <!--<div class="logo">
@@ -15,7 +9,7 @@
             </div>-->
             <div class="card-content">
               <div class="text-center">
-                <img width="150px" src="assets/img/IconTeamUp.png">
+                <img width="230px" src="assets/img/teamuplogo.png">
               </div>
               <div class="text-dark pt-2 pb-2">
                 <ion-label class="fw-bold fs-3">Bienvenido, futbolero✌️</ion-label><br>
@@ -23,14 +17,29 @@
               </div>
               <ion-item class="mb-2 ion-no-padding">
                 <ion-label position="stacked">Correo</ion-label>
-                <ion-input name="email" type="email" placeholder="tu@correo.com" [(ngModel)]="usuario.email" required></ion-input>
+                <ion-input type="email" placeholder="tu@correo.com" formControlName="email"></ion-input>
               </ion-item>
-              <ion-item class="ion-no-padding">
+              <!-- Error messages -->
+              <span class="error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.required">
+                Campo requerido.
+              </span>
+              <span class="error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.pattern">
+                No es un correo valido.
+              </span>
+              <ion-item class="ion-no-padding align-items-end">
                 <ion-label position="stacked">Contraseña</ion-label>
-                <ion-input name="password" type="password" placeholder="Contraseña" [(ngModel)]="usuario.password" required></ion-input>
+                <ion-input type="password" placeholder="Contraseña" formControlName="password" #input></ion-input>
+                <ion-icon slot="end" name="eye" (click)="showPassword(input, icon)" #icon></ion-icon>
               </ion-item>
+              <!-- Error messages -->
+              <span class="error ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.required">
+                Campo requerido.
+              </span>
+              <span class="error ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.maxLength">
+                No es una contraseña valida.
+              </span>
               <div class="pt-3 d-flex justify-content-end gap-2">
-                <ion-button color="secondary" type="submit" [disabled]="form.invalid">
+                <ion-button color="tertiary" type="submit">
                   Ingresar <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
                 </ion-button>
               </div>
