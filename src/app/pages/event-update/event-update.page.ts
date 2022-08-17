@@ -7,6 +7,7 @@ import { finalize } from 'rxjs/operators';
 import { EventService } from 'src/app/services/event.service';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-event-update',
@@ -18,20 +19,46 @@ export class EventUpdatePage implements OnInit {
   file: any;
   imgState: boolean = false;
   id: any;
+  eventForm: FormGroup;
+  imgPlaceForm: FormGroup;
+  isSubmitted = false;
+  minDate = new Date().toISOString().split("T")[0];
 
   constructor(
     private nav: NavController,
     private interaction: InteractionService, 
     private angularStorage: AngularFireStorage,
     private eventService: EventService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
-    console.log(this.id);
+    //console.log(this.id);
     
-    this.getEventData(this.id)
+    this.getEventData(this.id);
+
+    this.eventForm = this.formBuilder.group({
+      type: ['', [Validators.required]],
+      place: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(40)]],
+      startTime: ['', [Validators.required]],
+      endTime: ['', [Validators.required]],
+      date: ['', [Validators.required]],
+      info: ['', [Validators.required, Validators.maxLength(200)]]
+    })
+    
+    this.imgPlaceForm = this.formBuilder.group({
+      imgPlace: ['', [Validators.required]],
+    })
+  }
+
+  get errorControl() {
+    return this.eventForm.controls;
+  }
+
+  get errorControlImg() {
+    return this.imgPlaceForm.controls;
   }
 
   async getEventData(id){
@@ -40,7 +67,7 @@ export class EventUpdatePage implements OnInit {
         resolve(res);
       });
     });
-    //console.log('EVENT DATA',this.eventData);
+    console.log('EVENT DATA',this.eventData);
   }
 
   async enviar() {
@@ -77,25 +104,31 @@ export class EventUpdatePage implements OnInit {
 
   async updateEvent(type, date, place, info, startTime, endTime){
     await this.interaction.showLoading('Actualizando...');
-    const datosEvent: Event = {
-      type: type.value,
-      date: date.value,
-      place: place.value,
-      info: info.value,
-      startTime: startTime.value,
-      endTime: endTime.value,
-      updatedAt: Timestamp.now()
-    }
-    this.eventService.updateEvent(this.id, datosEvent);
+    this.isSubmitted = true;
+    if (!this.eventForm.valid) {
+      this.interaction.closeLoading();
+      return false;
+    } else {
+      const datosEvent: Event = {
+        type: type.value,
+        date: date.value,
+        place: place.value,
+        info: info.value,
+        startTime: startTime.value,
+        endTime: endTime.value,
+        updatedAt: Timestamp.now()
+      }
+      this.eventService.updateEvent(this.id, datosEvent);
 
-    await new Promise((resolve) => {
-      this.eventService.getEventData(this.id);
-      resolve("Promesa resuelta");
-    });
-    
-    this.interaction.closeLoading();
-    this.interaction.presentToast('Actividad actualizada.');
-    this.nav.navigateBack(['tabs/calendar/event-detail/' + this.id]);
+      await new Promise((resolve) => {
+        this.eventService.getEventData(this.id);
+        resolve("Promesa resuelta");
+      });
+      
+      this.interaction.closeLoading();
+      this.interaction.presentToast('Actividad actualizada.');
+      this.nav.navigateBack(['tabs/calendar/event-detail/' + this.id]);
+    }
   }
 
   async updateImgEvent(){

@@ -63,7 +63,7 @@
               </span>
               <ion-item class="mb-2 ion-no-padding">
                 <ion-label>Nacimiento</ion-label>
-                <input [max]="maxDate" formControlName="birthday" class="form-control" type="date" #birthday >
+                <input min="1920-01-01" [max]="maxDate" formControlName="birthday" class="form-control" type="date" #birthday >
               </ion-item>
               <!-- Error messages -->
               <span class="error ion-padding" *ngIf="isSubmitted && errorControlUser.birthday.errors?.required">
@@ -135,7 +135,7 @@
             </span>
             <ion-item class="mb-2 ion-no-padding">
               <ion-label>Fecha de creación</ion-label>
-              <input formControlName="teamBirthday" [max]="maxDateNow" class="form-control" type="date" #teamBirthday >
+              <input formControlName="teamBirthday" min="1880-01-01" [max]="maxDateNow" class="form-control" type="date" #teamBirthday >
             </ion-item>
             <!-- Error messages -->
             <span class="error ion-padding" *ngIf="isSubmitted && errorControlTeam.teamBirthday.errors?.required">

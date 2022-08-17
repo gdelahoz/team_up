@@ -3,69 +3,102 @@
 </ion-header>
 
 <ion-content>
-  <form>
-    <ion-grid>
-      <ion-row color="primary" class="mb-3 justify-content-center">
-        <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+  <ion-grid>
+    <ion-row color="primary" class="mb-3 justify-content-center">
+      <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+        <form [formGroup]="imgPlaceForm">
           <ion-card class="p-4">
-            <div>
-              <div class="text-dark mb-2">
-                <ion-label class="fs-4 fw-bold">Foto del lugar</ion-label><br>
-              </div>
-              <ion-item class="mb-2 ion-no-padding">
-                <ion-label  class="mb-3" position="stacked">Imagen del lugar</ion-label>
-                <input style="font-size: 0.8rem;" class="form-control mb-1" (change)="uploadImg($event)" type="file" #imgPlace>
-              </ion-item>
-              <div class="pt-3 d-flex justify-content-end gap-2">
-                <ion-button (click)="updateImgEvent()" color="secondary">
-                  Actualizar imagen <ion-icon slot="end" name="save"></ion-icon>
-                </ion-button>
-              </div>
+            <div class="text-dark mb-2">
+              <ion-label class="fs-4 fw-bold">Foto del lugar</ion-label><br>
+            </div>
+            <ion-item class="mb-2 ion-no-padding">
+              <ion-label  class="mb-3" position="stacked">Imagen del lugar</ion-label>
+              <input style="font-size: 0.8rem;" formControlName="imgPlace" class="form-control mb-1" (change)="uploadImg($event)" type="file" #imgPlace>
+            </ion-item>
+            <!-- Error messages -->
+            <span class="error ion-padding" *ngIf="isSubmitted && errorControlImg.imgPlace.errors?.required">
+              Campo requerido.
+            </span>
+            <div class="pt-3 d-flex justify-content-end gap-2">
+              <ion-button (click)="updateImgEvent()" [disabled]="imgPlaceForm.invalid" color="secondary">
+                Actualizar imagen <ion-icon slot="end" name="save"></ion-icon>
+              </ion-button>
             </div>
           </ion-card>
+        </form>
+        <div *ngIf="eventData">
+        <form [formGroup]="eventForm">
           <ion-card class="p-4">
-            <div *ngIf="eventData">
               <ion-item class="ion-no-padding mb-2">
                 <ion-label position="stacked">Tipo de evento</ion-label>
-                <ion-select class="w-100" placeholder="Seleccionar" [value]="eventData.type" #type>
+                <ion-select formControlName="type" class="w-100" placeholder="Seleccionar" #type>
                   <ion-select-option value="Partido">Partido</ion-select-option>
                   <ion-select-option value="Entrenamiento">Entrenamiento</ion-select-option>
                   <ion-select-option value="Actividad social">Social</ion-select-option>
                 </ion-select>
               </ion-item>
+              <!-- Error messages -->
+              <span class="error ion-padding" *ngIf="isSubmitted && errorControl.type.errors?.required">
+                Campo requerido.
+              </span>
               <ion-item class="mb-2 ion-no-padding">
                 <ion-label position="stacked">Lugar del evento</ion-label>
-                <ion-input name="place" type="text" placeholder="Polideportivo Pibe Valderrama" [value]="eventData.place" #place></ion-input>
+                <ion-input formControlName="place" type="text" placeholder="Polideportivo Pibe Valderrama" #place></ion-input>
               </ion-item>
+              <!-- Error messages -->
+              <span class="error ion-padding" *ngIf="isSubmitted && errorControl.place.errors?.required">
+                Campo requerido.
+              </span>
+              <span class="error ion-padding" *ngIf="isSubmitted && (errorControl.place.errors?.minlength || errorControl.place.errors?.maxlength)">
+                El nombre del lugar debe tener entre 5 a 40 caracteres.
+              </span>
               <ion-item class="mb-2 ion-no-padding">
                 <ion-label class="mb-2" position="stacked">Hora comienzo y final</ion-label>
                 <ion-row class="justify-content-between w-100">
                   <ion-col size="6">
-                    <input class="form-control" name="startTime" type="time" [value]="eventData.startTime" #startTime>
+                    <input class="form-control" formControlName="startTime" type="time"  #startTime>
                   </ion-col>
                   <ion-col size="6">
-                    <input class="form-control" name="endTime" type="time" [value]="eventData.endTime" #endTime>
+                    <input class="form-control" formControlName="endTime" type="time" #endTime>
                   </ion-col>
                 </ion-row>
               </ion-item>
+              <!-- Error messages -->
+              <span class="error ion-padding" *ngIf="isSubmitted && errorControl.startTime.errors?.required">
+                Campo hora de inicio requerido.
+              </span><br>
+              <span class="error ion-padding" *ngIf="isSubmitted && errorControl.endTime.errors?.required">
+                Campo hora de final requerido.
+              </span>
               <ion-item class="mb-2 ion-no-padding">
                 <ion-label>Fecha</ion-label>
-                <input class="form-control min-content" type="date" [value]="eventData.date" #date>
+                <input formControlName="date" class="form-control min-content" type="date" [min]="minDate" #date>
               </ion-item>
+              <!-- Error messages -->
+              <span class="error ion-padding" *ngIf="isSubmitted && errorControl.date.errors?.required">
+                Campo requerido.
+              </span>
               <ion-item class="mb-2 ion-no-padding">
                 <ion-label position="stacked">Informacion adicional</ion-label>
-                <ion-textarea name="description" rows="6"  placeholder="Escriba aquí..." [value]="eventData.info" #info></ion-textarea>
+                <ion-textarea formControlName="info" rows="6"  placeholder="Escriba aquí..." #info></ion-textarea>
               </ion-item>
+              <!-- Error messages -->
+              <span class="error ion-padding" *ngIf="isSubmitted && errorControl.info.errors?.required">
+                Campo requerido.
+              </span>
+              <span class="error ion-padding" *ngIf="isSubmitted && errorControl.info.errors?.maxlength">
+                La información tiene un limite de 200 caracteres.
+              </span>
               <div class="pt-3 d-flex justify-content-end gap-2">
                 <ion-button (click)="updateEvent(type, date, place, info, startTime, endTime)" color="secondary" type="submit">
                   Actualizar actividad <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
                 </ion-button>
               </div>
-            </div>
           </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </form>
+        </form>
+      </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
 

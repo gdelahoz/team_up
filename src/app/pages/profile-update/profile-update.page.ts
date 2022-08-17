@@ -163,8 +163,6 @@ export class ProfileUpdatePage implements OnInit {
     }
   }
 
-  updatePassword(){}
-
   async enviar() {
     const imgRef = `images/${this.file.name}`;
     const ref = this.angularStorage.ref(imgRef);
