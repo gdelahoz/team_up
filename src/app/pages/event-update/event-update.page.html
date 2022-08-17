@@ -26,9 +26,9 @@
             </div>
           </ion-card>
         </form>
-        <div *ngIf="eventData">
         <form [formGroup]="eventForm">
           <ion-card class="p-4">
+            <div *ngIf="eventData">
               <ion-item class="ion-no-padding mb-2">
                 <ion-label position="stacked">Tipo de evento</ion-label>
                 <ion-select formControlName="type" class="w-100" placeholder="Seleccionar" #type>
@@ -94,9 +94,9 @@
                   Actualizar actividad <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
                 </ion-button>
               </div>
+            </div>
           </ion-card>
         </form>
-      </div>
       </ion-col>
     </ion-row>
   </ion-grid>
